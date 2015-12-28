@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+
+    <context:property-placeholder location="classpath:jdbc.properties" file-encoding="UTF-8"/>
+    <import resource="classpath:journal-dao-beans.xml"/>
+    <import resource="app-security.xml"/>
+
+    <!--  all resources inside folder src/main/webapp/resources are mapped so they can be refered to inside JSP files
+        (see inHeader.jsp for more details) -->
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
+    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
+
+    <context:component-scan base-package="by.gmlocge.web"/>
+
+    <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager">
+        <mvc:message-converters>
+            <!--Если этой хуйни для objectMapper не указать, она почемуто часть полей потом не сериализует-->
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper" ref="objectMapper"/>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <bean id="sortResolver" class="org.springframework.data.web.SortHandlerMethodArgumentResolver"/>
+    <bean id="pageableResolver" class="org.springframework.data.web.PageableHandlerMethodArgumentResolver">
+        <constructor-arg ref="sortResolver"/>
+    </bean>
+
+    <bean id="objectMapper" class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean">
+        <property name="failOnEmptyBeans" value="false"/>
+        <!--<property name="indentOutput" value="true"/>-->
+        <property name="defaultViewInclusion" value="true"/>
+    </bean>
+
+    <bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+        <!--<property name="order" value="2"/>-->
+    </bean>
+
+
+    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+        <property name="order" value="1"/>
+        <property name="viewResolvers">
+            <list>
+                <!--<ref bean="tilesViewResolver"/>-->
+                <ref bean="jspViewResolver"/>
+            </list>
+        </property>
+    </bean>
+
+    <!--<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">-->
+    <!--<property name="definitions">-->
+    <!--<list>-->
+    <!--<value>/WEB-INF/tiles/tiles3-usogdp.xml</value>-->
+    <!--</list>-->
+    <!--</property>-->
+    <!--<property name="checkRefresh" value="true"/>-->
+    <!--&lt;!&ndash;enabling auto-refresh of Tiles definitions. &ndash;&gt;-->
+    <!--<property name="preparerFactoryClass"-->
+    <!--value="org.springframework.web.servlet.view.tiles3.SpringBeanPreparerFactory"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="tilesViewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">-->
+    <!--<property name="order" value="2"/>-->
+    <!--</bean>-->
+
+
+    <!--Конфигурируем JSON и XML request-->
+    <mvc:annotation-driven content-negotiation-manager="contentNegotiationManager"/>
+
+    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <property name="favorPathExtension" value="false"/>
+        <property name="favorParameter" value="true"/>
+        <property name="mediaTypes">
+            <value>
+                x-javascript=application/x-javascript
+                json=application/json
+                xml=application/xml
+            </value>
+        </property>
+
+    </bean>
+
+
+    <!--<mvc:view-controller path="/news.html" view-name="usogdp.index"/>-->
+
+    <!--<mvc:view-controller path="/trainconsist" view-name="usogdp.trainconsist"/>-->
+    <!--<mvc:view-controller path="/trainschedule" view-name="usogdp.schedule"/>-->
+    <!--<mvc:view-controller path="/trainschedule2" view-name="usogdp.schedule2"/>-->
+    <!--<mvc:view-controller path="/lokoschedule" view-name="usogdp.lokoschedule"/>-->
+    <!--<mvc:view-controller path="/trainprocessing" view-name="usogdp.trainprocessing"/>-->
+    <!--<mvc:view-controller path="/stamod" view-name="usogdp.stamod"/>-->
+    <!--<mvc:view-controller path="/stascript" view-name="usogdp.stascript"/>-->
+    <!--<mvc:view-controller path="/graphdistricts" view-name="usogdp.graphdistricts"/>-->
+    <!--<mvc:view-controller path="/emptyvagons" view-name="usogdp.emptyvagons"/>-->
+    <!--<mvc:view-controller path="/districts" view-name="usogdp.districts"/>-->
+    <!--<mvc:view-controller path="/contacts" view-name="usogdp.contacts"/>-->
+    <!--<mvc:view-controller path="/help" view-name="usogdp.help"/>-->
+
+    <!--&lt;!&ndash; страничка со списком ajax Api доступными по get методам &ndash;&gt;-->
+    <!--<mvc:view-controller path="/api1" view-name="usogdp.api1"/>-->
+    <!--&lt;!&ndash;страничка со списком всех доступных URL адресов в приложении&ndash;&gt;-->
+    <!--<mvc:view-controller path="/reference" view-name="usogdp.reference"/>-->
+    <!--<mvc:view-controller path="/texpage" view-name="usogdp.texpage"/>-->
+
+    <!--<mvc:view-controller path="/error/trace" view-name="error.trace"/>-->
+    <!--<mvc:view-controller path="/error/403" view-name="error.403"/>-->
+    <!--<mvc:view-controller path="/error/404" view-name="error.404"/>-->
+
+
+</beans>
