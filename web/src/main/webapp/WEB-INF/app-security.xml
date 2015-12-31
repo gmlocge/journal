@@ -6,7 +6,8 @@
              xmlns:util="http://www.springframework.org/schema/util"
              xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
                                  http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
-                                 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+                                 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+                                 http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
     <http security="none" pattern="/webjars/**"/>
     <http security="none" pattern="/favicon.ico"/>
@@ -16,7 +17,6 @@
             <concurrency-control max-sessions="1" />
         </session-management>
 
-        <csrf disabled="true"></csrf>
         <headers>
             <frame-options policy="SAMEORIGIN"/>
         </headers>
@@ -55,7 +55,7 @@
     </beans:bean>
 
     <authentication-manager>
-        <authentication-provider user-service-ref="userManServiceForSpringSecurity"/>
+        <authentication-provider user-service-ref="" ref=""/>
     </authentication-manager>
 
 </beans:beans>

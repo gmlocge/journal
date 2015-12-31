@@ -1,7 +1,9 @@
 package by.gmlocge.journal.service;
 
 import by.gmlocge.journal.entity.security.Role;
+import by.gmlocge.journal.entity.security.UserAuthority;
 import by.gmlocge.journal.entity.security.UserJournal;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,19 +13,22 @@ import java.util.Set;
 @Transactional(readOnly = true)
 public interface ISecurityManage {
 
-    Role createOrUpdateRole(String name, Set<String> permissions);
-
-    Set<Role> createOrUpdateRoleIfNotExist(Set<Role> roles);
+    Set<UserAuthority> createAuthorities(GrantedAuthority... gas);
 
     List<UserJournal> findAllUsers();
 
-    UserJournal createUser(String login, String password);
+    @Transactional
+    UserJournal updateUser(UserJournal user);
+
+    UserJournal createUser(String login, String password, Set<UserAuthority> authorities);
 
     UserJournal getUser(String login);
 
-    Set<String> getUserPermissions(UserJournal userJournal);
+//    Set<String> getUserPermissions(UserJournal userJournal);
 
-    UserJournal updateUser(UserJournal user, Set<Role> roles);
+    Set<UserAuthority> getUserAuthority(UserJournal userJournal);
+
+//    UserJournal updateUser(UserJournal user, Set<Role> roles);
 
 
 //    @Transactional(propagation = Propagation.REQUIRED)

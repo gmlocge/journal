@@ -1,39 +1,57 @@
 package by.gmlocge.journal.entity.security;
 
 import by.gmlocge.journal.Const;
+import com.sun.istack.internal.NotNull;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(schema = Const.SCHEMA, name = "users")
-public class UserJournal {
+public class UserJournal implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @NotNull
     @Column(unique = true, nullable = false)
-    private Integer id;
+    private String username; // as login
 
-    @Column(nullable = false)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true)
+    private Set<UserAuthority> authorities;
+
+
     private String firstName;
     private String lastName;
     private String middleName;
 
-    @OneToMany
-    @JoinTable(schema = Const.SCHEMA, name = "user_accounts")
-    private Set<Account> accounts = new HashSet<>();
+    private boolean locked = false;
+    private boolean enabled = true;
 
-    @ManyToMany
-    @JoinTable(schema = Const.SCHEMA, name = "user_roles")
-    private Set<Role> roles = new HashSet<>();
+    @NotNull
+    @Column(nullable = false)
+    private String password;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Override
+    public Set<UserAuthority> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(Set<UserAuthority> authorities) {
+        this.authorities = authorities;
     }
 
     public String getFirstName() {
@@ -60,31 +78,51 @@ public class UserJournal {
         this.middleName = middleName;
     }
 
-    public Set<Account> getAccounts() {
-        return accounts;
+    @Override
+    public String getPassword() {
+        return password;
     }
 
-    public void setAccounts(Set<Account> accounts) {
-        this.accounts = accounts;
+    @Override
+    public String getUsername() {
+        return username;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    @Override
+    public boolean isAccountNonLocked() {
+        return !locked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Override
     public String toString() {
         return "UserJournal{" +
                 "id=" + id +
+                ", username='" + username + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", middleName='" + middleName + '\'' +
-//                ", accounts=" + accounts +
-//                ", roles=" + roles +
+                ", locked=" + locked +
+                ", enabled=" + enabled +
+                ", password='" + password + '\'' +
                 '}';
     }
 }

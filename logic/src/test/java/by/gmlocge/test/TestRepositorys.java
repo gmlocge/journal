@@ -2,7 +2,9 @@ package by.gmlocge.test;
 
 import by.gmlocge.journal.entity.*;
 import by.gmlocge.journal.entity.security.Role;
+import by.gmlocge.journal.entity.security.UserAuthority;
 import by.gmlocge.journal.entity.security.UserJournal;
+import by.gmlocge.journal.entity.security.UserRole;
 import by.gmlocge.journal.repository.*;
 import by.gmlocge.journal.service.ISecurityManage;
 import by.gmlocge.journal.service.IServiseData;
@@ -58,21 +60,30 @@ public class TestRepositorys {
         IServiseData serviseData = ac.getBean(IServiseData.class);
         ISecurityManage securityManage = ac.getBean(ISecurityManage.class);
         IUserJournalRepository daoUser = ac.getBean(IUserJournalRepository.class);
-        IAccountRepository daoAccount = ac.getBean(IAccountRepository.class);
+//        IAccountRepository daoAccount = ac.getBean(IAccountRepository.class);
 
         String logIn = "test";
         String p = "test";
         UserJournal userJournal = securityManage.getUser(logIn);
+
 //        Set<Role> roles = userJournal.getRoles();
 //        Set<String> permissions = new HashSet<>();
 //        for (Role role : roles) {
 //            permissions.addAll(role.getPermissions());
 //        }
 //        System.out.println(permissions);
+        UserAuthority ua = new UserAuthority("ROLE_CUSTOM");
+        ua.setUser(userJournal);
+//        UserJournal uAdmin = securityManage.createUser("d4", "admin", );
 
-        System.out.println(securityManage.findAllUsers());
-        Set<String> permissions = securityManage.getUserPermissions(userJournal);
-        System.out.println(permissions);
+//        System.out.println(securityManage.findAllUsers());
+        Set<UserAuthority> authorities = securityManage.getUserAuthority(userJournal);
+        authorities.add(ua);
+        userJournal.setAuthorities(authorities);
+        securityManage.updateUser(userJournal);
+
+        authorities = securityManage.getUserAuthority(userJournal);
+        System.out.println(authorities);
 
     }
 
