@@ -30,14 +30,15 @@
             <a class="navbar-brand" href="${ctx}/">рИАВиВРЗ</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-            <form class="navbar-form navbar-right">
+            <form class="navbar-form navbar-right" action="${ctx}/login" method="post">
                 <div class="form-group ">
-                    <input type="text" placeholder="Email" class="form-control col-md-1">
+                    <input id="username" name="username" type="text" placeholder="Логин" class="form-control col-md-1">
                 </div>
                 <div class="form-group ">
-                    <input type="password" placeholder="Password" class="form-control col-md-1">
+                    <input id="password" name="password"  type="password" placeholder="Пароль" class="form-control col-md-1">
                 </div>
                 <button type="submit" class="btn btn-success">Войти</button>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             </form>
         </div><!--/.navbar-collapse -->
     </div>
@@ -89,7 +90,8 @@
             <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula
                 porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
                 fermentum massa justo sit amet risus.</p>
-
+                <a href="${ctx}/ajax/devices/all">devices</a>
+                <a href="${ctx}/glavnaya">glavnaya</a>
             <p><a class="btn btn-default"
                   href="./Jumbotron Template for Bootstrap_files/Jumbotron Template for Bootstrap.html" role="button">View
                 details »</a></p>

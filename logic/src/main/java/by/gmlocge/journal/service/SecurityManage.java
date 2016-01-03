@@ -13,7 +13,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import java.util.*;
@@ -27,28 +26,6 @@ public class SecurityManage implements ISecurityManage {
     private IUserJournalRepository daoUser;
     @Autowired
     private IGroupRepository daoGroup;
-
-    @PostConstruct
-    private void init() {
-        Group gBase = createGroupIfNotExist(Const.NAME_BASE_GROUP);
-        addAuthoritiesToGroup(gBase, createAuthorities(AuthorityPredefined.AUTH, AuthorityPredefined.GUEST));
-        logger.trace("update group - " + gBase);
-        Group gAdmin = createGroupIfNotExist(Const.NAME_ADMIN_GROUP);
-        addAuthoritiesToGroup(gAdmin, createAuthorities(AuthorityPredefined.values()));
-        logger.trace("update group - " + gAdmin);
-
-//        UserJournal uAdmin = createUserIfNotExist("d4", "admin");
-//        uAdmin = addGroupsToUser(uAdmin, new HashSet<>(Arrays.asList(gBase, gAdmin)));
-//        uAdmin = loadFullUser(uAdmin);
-//        logger.trace("update user - " + uAdmin);
-//
-//        UserJournal uTest = createUserIfNotExist("test", "1test");
-//        uTest = addGroupToUser(uTest, gBase);
-//        uTest = loadFullUser(uTest);
-//        logger.trace("update user - " + uTest);
-
-    }
-
 
     @Override
     public Set<Authority> createAuthorities(GrantedAuthority... gas) {

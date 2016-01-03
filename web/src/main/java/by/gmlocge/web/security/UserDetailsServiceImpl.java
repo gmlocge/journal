@@ -25,6 +25,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         logger.debug("Ищем в базе юзера по его имени");
         UserJournal uj = securityManage.getUser(username);
+        if (null == uj) throw new UsernameNotFoundException("user with given name(" + username + ") not found");
         uj = securityManage.loadFullUser(uj);
 //        Set<String> per = securityManage.getUserPermissions(uj);
 //        String pw = uj.ge

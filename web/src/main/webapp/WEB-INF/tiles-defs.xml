@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+    <definition name="cms.main" template="/WEB-INF/template/first/template.jsp">
+    <!--<put-attribute name="titleKey" value="programm.defaultkey"/>-->
+    <!--<put-attribute name="header" value="/WEB-INF/views/cms/templates/first/header.jsp"/>-->
+    <!--<put-attribute name="content" value=""/>-->
+    <!--<put-attribute name="footer" value="/WEB-INF/views/cms/templates/first/footer.jsp"/>-->
+    </definition>
+
+    <!--<definition name="cms.main" template="/WEB-INF/views/cms/templates/first/shablon.jsp">-->
+        <!--<put-attribute name="titleKey" value="programm.defaultkey"/>-->
+        <!--<put-attribute name="header" value="/WEB-INF/views/cms/templates/first/header.jsp"/>-->
+        <!--&lt;!&ndash;<put-attribute name="content" value=""/>&ndash;&gt;-->
+        <!--<put-attribute name="footer" value="/WEB-INF/views/cms/templates/first/footer.jsp"/>-->
+    <!--</definition>-->
+
+    <!--<definition extends="cms.main" name="cms.startPage">-->
+        <!--<put-attribute name="titleKey" value="programm.firstPage"/>-->
+        <!--<put-attribute name="content" value="/WEB-INF/views/startPage.jsp"/>-->
+    <!--</definition>-->
+
+    <!--<definition extends="cms.main" name="cms.contacts">-->
+        <!--<put-attribute name="titleKey" value="programm.firstPage"/>-->
+        <!--<put-attribute name="content" value="/WEB-INF/views/cms/tiles/contacts.jsp"/>-->
+    <!--</definition>-->
+
+
+    <!--<definition extends="cms.main" name="cms.user.new">-->
+        <!--<put-attribute name="titleKey" value="programm.usernewregistr"/>-->
+        <!--<put-attribute name="content" value="/WEB-INF/views/cms/tiles/userNew.jsp"/>-->
+    <!--</definition>-->
+    <!--<definition extends="cms.main" name="cms.user.login">-->
+        <!--<put-attribute name="titleKey" value="Вход"/>-->
+        <!--<put-attribute name="content" value="/WEB-INF/views/cms/tiles/login.jsp"/>-->
+    <!--</definition>-->
+
+
+    <!--&lt;!&ndash;<definition extends="public" name="htmllesson">&ndash;&gt;-->
+    <!--&lt;!&ndash;<put-attribute name="content" value="/WEB-INF/views/htmllesson.jsp"/>&ndash;&gt;-->
+    <!--&lt;!&ndash;</definition>&ndash;&gt;-->
+
+
+    <!--<definition extends="cms.main" name="cms.error.403">-->
+        <!--<put-attribute name="content" value="/WEB-INF/views/error/403.jsp"/>-->
+    <!--</definition>-->
+    <!--<definition extends="cms.main" name="cms.error.404">-->
+        <!--<put-attribute name="content" value="/WEB-INF/views/error/404.jsp"/>-->
+    <!--</definition>-->
+    <!--<definition extends="cms.main" name="cms.error.trace">-->
+        <!--<put-attribute name="content" value="/WEB-INF/views/error/errortrace.jsp"/>-->
+    <!--</definition>-->
+
+    <!--&lt;!&ndash;<definition name="editredirectview" template="/WEB-INF/views/redirectview/redirectViewEdit.jsp">&ndash;&gt;-->
+    <!--&lt;!&ndash;</definition>&ndash;&gt;-->
+
+    <!--<definition extends="cms.main" name="cms.api.test">-->
+        <!--<put-attribute name="titleKey" value="Api-Test"/>-->
+        <!--<put-attribute name="content" value="/WEB-INF/views/cms/blocks/apitest.jsp"/>-->
+    <!--</definition>-->
+
+    <!--<definition extends="cms.main" name="cms.test.1">-->
+        <!--<put-attribute name="titleKey" value="Api-Test"/>-->
+        <!--<put-attribute name="content" value="/WEB-INF/views/cms/tiles/testMenu.jsp"/>-->
+    <!--</definition>-->
+
+    <!--&lt;!&ndash;Для использования страниц тайлес в динамическом контенте, пожалуйста добавляйте спереди префикс dc , как в следующем примере&ndash;&gt;-->
+    <!--<definition name="dc.api" template="/WEB-INF/views/cms/blocks/apitest.jsp"/>-->
+
+</tiles-definitions>

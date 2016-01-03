@@ -77,16 +77,16 @@ public class TestRepositorys {
         IUserJournalRepository daoUser = ac.getBean(IUserJournalRepository.class);
 //        IAccountRepository daoAccount = ac.getBean(IAccountRepository.class);
 
-        String logIn = "test";
-        String p = "test";
-        UserJournal userJournal = securityManage.createUserIfNotExist(logIn, p);
-        userJournal = securityManage.loadFullUser(userJournal);
-        System.out.println(userJournal);
-        List<Group> groups = securityManage.getAllGroups();
-        userJournal = securityManage.addGroupsToUser(userJournal, new HashSet<>(groups));
-
-        Set<Authority> authorities = securityManage.getUserAuthority(userJournal);
-        System.out.println(authorities);
+//        String logIn = "test";
+//        String p = "test";
+//        UserJournal userJournal = securityManage.createUserIfNotExist(logIn, p);
+//        userJournal = securityManage.loadFullUser(userJournal);
+//        System.out.println(userJournal);
+//        List<Group> groups = securityManage.getAllGroups();
+//        userJournal = securityManage.addGroupsToUser(userJournal, new HashSet<>(groups));
+//
+//        Set<Authority> authorities = securityManage.getUserAuthority(userJournal);
+//        System.out.println(authorities);
 //        Set<Group> roles = userJournal.getRoles();
 //        Set<String> permissions = new HashSet<>();
 //        for (Group role : roles) {

@@ -142,11 +142,7 @@ public class UserJournal implements UserDetails {
         return "UserJournal{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", middleName='" + middleName + '\'' +
                 ", enabled=" + enabled +
-                ", password='" + password + '\'' +
                 '}';
     }
 }
