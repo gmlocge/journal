@@ -2,42 +2,44 @@ package by.gmlocge.journal.entity.security;
 
 import by.gmlocge.journal.Const;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sun.istack.internal.NotNull;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 
+/**
+ * http://stackoverflow.com/questions/28659115/spring-security-defining-user-registration-with-role-user
+ *
+ */
 @Entity
 @Table(schema = Const.SCHEMA)
-public class UserAuthority implements GrantedAuthority {
+@IdClass(Authority.class)
+public class Authority implements GrantedAuthority {
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JsonIgnore
-    @Id
-    private UserJournal user;
-
-    @NotNull
     @Id
     private String authority;
 
-    public UserAuthority() {
+    @Id
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Group group;
+
+    public Authority() {
     }
 
-    public UserAuthority(GrantedAuthority ga) {
+    public Authority(GrantedAuthority ga) {
         this.authority = ga.getAuthority();
     }
 
-    public UserAuthority(String authority) {
+    public Authority(String authority) {
         this.authority = authority;
     }
 
-    public UserJournal getUser() {
-        return user;
+    public Group getGroup() {
+        return group;
     }
 
-    public void setUser(UserJournal user) {
-        this.user = user;
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     @Override
@@ -55,7 +57,7 @@ public class UserAuthority implements GrantedAuthority {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        UserAuthority that = (UserAuthority) o;
+        Authority that = (Authority) o;
 
         return !(authority != null ? !authority.equals(that.authority) : that.authority != null);
 

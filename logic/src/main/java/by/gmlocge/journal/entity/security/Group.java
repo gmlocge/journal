@@ -6,9 +6,9 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
-//@Entity
-//@Table(schema = Const.SCHEMA, name = "roles")
-public class Role {
+@Entity
+@Table(schema = Const.SCHEMA, name = "groups")
+public class Group {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,9 +18,16 @@ public class Role {
     @Column(unique = true, nullable = false)
     private String name;
 
-    @ElementCollection
-    @JoinTable(schema = Const.SCHEMA, name = "role_permissions")
-    private Set<String> permissions = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "group", fetch = FetchType.EAGER, orphanRemoval = true)
+    private Set<Authority> authorities = new HashSet<>();
+
+    public Set<Authority> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(Set<Authority> authorities) {
+        this.authorities = authorities;
+    }
 
     public Integer getId() {
         return id;
@@ -38,20 +45,13 @@ public class Role {
         this.name = name;
     }
 
-    public Set<String> getPermissions() {
-        return permissions;
-    }
-
-    public void setPermissions(Set<String> permissions) {
-        this.permissions = permissions;
-    }
 
     @Override
     public String toString() {
-        return "Role{" +
+        return "Group{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", permissions=" + permissions +
+                ", authorities=" + authorities +
                 '}';
     }
 
@@ -60,7 +60,7 @@ public class Role {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Role role = (Role) o;
+        Group role = (Group) o;
 
         return name.equals(role.name);
 

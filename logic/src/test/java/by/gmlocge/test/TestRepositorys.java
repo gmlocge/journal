@@ -1,10 +1,10 @@
 package by.gmlocge.test;
 
 import by.gmlocge.journal.entity.*;
-import by.gmlocge.journal.entity.security.Role;
-import by.gmlocge.journal.entity.security.UserAuthority;
+import by.gmlocge.journal.entity.security.Authority;
+import by.gmlocge.journal.entity.security.AuthorityPredefined;
+import by.gmlocge.journal.entity.security.Group;
 import by.gmlocge.journal.entity.security.UserJournal;
-import by.gmlocge.journal.entity.security.UserRole;
 import by.gmlocge.journal.repository.*;
 import by.gmlocge.journal.service.ISecurityManage;
 import by.gmlocge.journal.service.IServiseData;
@@ -12,13 +12,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 public class TestRepositorys {
     private static final Logger logger = LoggerFactory.getLogger(TestRepositorys.class);
@@ -26,9 +22,28 @@ public class TestRepositorys {
     public static void main(String[] args) {
         ApplicationContext ac = new ClassPathXmlApplicationContext("test-context.xml");
         testOne(ac);
+//        testGroup(ac);
 
         testUser(ac);
     }
+
+    private static void testGroup(ApplicationContext ac) {
+        IGroupRepository daoGroup = ac.getBean(IGroupRepository.class);
+        ISecurityManage securityManage = ac.getBean(ISecurityManage.class);
+
+//        System.out.println(daoGroup.findOneByName(Const.NAME_ADMIN_GROUP));
+
+        Group group = securityManage.createGroupIfNotExist("test");
+
+//        securityManage.addAuthorityToGroup(group, AuthorityPredefined.BASE.getGroupAuthority());
+        group = securityManage.addAuthoritiesToGroup(group, securityManage.createAuthorities(AuthorityPredefined.values()));
+        System.out.println("add ga");
+        System.out.println(group);
+        group = securityManage.removeAuthoritiesFromGroup(group, securityManage.createAuthorities(AuthorityPredefined.values()));
+        System.out.println("remove ga");
+        System.out.println(group);
+    }
+
 
     private static void testOne(ApplicationContext ac) {
         IServiseData serviseData = ac.getBean(IServiseData.class);
@@ -64,26 +79,33 @@ public class TestRepositorys {
 
         String logIn = "test";
         String p = "test";
-        UserJournal userJournal = securityManage.getUser(logIn);
+        UserJournal userJournal = securityManage.createUserIfNotExist(logIn, p);
+        userJournal = securityManage.loadFullUser(userJournal);
+        System.out.println(userJournal);
+        List<Group> groups = securityManage.getAllGroups();
+        userJournal = securityManage.addGroupsToUser(userJournal, new HashSet<>(groups));
 
-//        Set<Role> roles = userJournal.getRoles();
+        Set<Authority> authorities = securityManage.getUserAuthority(userJournal);
+        System.out.println(authorities);
+//        Set<Group> roles = userJournal.getRoles();
 //        Set<String> permissions = new HashSet<>();
-//        for (Role role : roles) {
+//        for (Group role : roles) {
 //            permissions.addAll(role.getPermissions());
 //        }
 //        System.out.println(permissions);
-        UserAuthority ua = new UserAuthority("ROLE_CUSTOM");
-        ua.setUser(userJournal);
+//        Authority ua = new Authority("ROLE_CUSTOM");
+//        ua.setUser(userJournal);
+
 //        UserJournal uAdmin = securityManage.createUser("d4", "admin", );
 
 //        System.out.println(securityManage.findAllUsers());
-        Set<UserAuthority> authorities = securityManage.getUserAuthority(userJournal);
-        authorities.add(ua);
-        userJournal.setAuthorities(authorities);
-        securityManage.updateUser(userJournal);
+//        Set<Authority> authorities = securityManage.getUserAuthority(userJournal);
+//        authorities.add(ua);
+//        userJournal.setAuthorities(authorities);
+//        securityManage.updateUser(userJournal);
 
-        authorities = securityManage.getUserAuthority(userJournal);
-        System.out.println(authorities);
+//        authorities = securityManage.getUserAuthority(userJournal);
+//        System.out.println(authorities);
 
     }
 

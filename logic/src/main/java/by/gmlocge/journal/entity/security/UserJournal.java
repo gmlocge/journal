@@ -1,10 +1,11 @@
 package by.gmlocge.journal.entity.security;
 
 import by.gmlocge.journal.Const;
-import com.sun.istack.internal.NotNull;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -14,24 +15,45 @@ public class UserJournal implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @NotNull
     @Column(unique = true, nullable = false)
     private String username; // as login
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER, orphanRemoval = true)
-    private Set<UserAuthority> authorities;
-
+    @Column(nullable = false)
+    private String password;
 
     private String firstName;
     private String lastName;
     private String middleName;
 
-    private boolean locked = false;
+    private boolean accountNonLocked = true;
     private boolean enabled = true;
+    private boolean credentialsNonExpired = true;
+    private boolean accountNonExpired = true;
 
-    @NotNull
-    @Column(nullable = false)
-    private String password;
+    @ManyToMany
+    @JoinTable(schema = Const.SCHEMA)
+    @JsonIgnore
+    private Set<Group> groups = new HashSet<>();
+
+    @Override
+    public Set<Authority> getAuthorities() {
+        Set<Authority> authorities = new HashSet<>();
+        for (Group group : groups) {
+            authorities.addAll(group.getAuthorities());
+        }
+        return authorities;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public Set<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Set<Group> groups) {
+        this.groups = groups;
+    }
 
     public Long getId() {
         return id;
@@ -43,15 +65,6 @@ public class UserJournal implements UserDetails {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    @Override
-    public Set<UserAuthority> getAuthorities() {
-        return authorities;
-    }
-
-    public void setAuthorities(Set<UserAuthority> authorities) {
-        this.authorities = authorities;
     }
 
     public String getFirstName() {
@@ -78,6 +91,18 @@ public class UserJournal implements UserDetails {
         this.middleName = middleName;
     }
 
+    public void setAccountNonLocked(boolean accountNonLocked) {
+        this.accountNonLocked = accountNonLocked;
+    }
+
+    public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+        this.credentialsNonExpired = credentialsNonExpired;
+    }
+
+    public void setAccountNonExpired(boolean accountNonExpired) {
+        this.accountNonExpired = accountNonExpired;
+    }
+
     @Override
     public String getPassword() {
         return password;
@@ -90,17 +115,17 @@ public class UserJournal implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return accountNonExpired;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return !locked;
+        return accountNonLocked;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return credentialsNonExpired;
     }
 
     @Override
@@ -120,7 +145,6 @@ public class UserJournal implements UserDetails {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", middleName='" + middleName + '\'' +
-                ", locked=" + locked +
                 ", enabled=" + enabled +
                 ", password='" + password + '\'' +
                 '}';
