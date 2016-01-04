@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/ajax")
@@ -26,7 +28,7 @@ public class AjaxController {
     @Autowired
     IServiseData serviseData;
     @Autowired
-    ISecurityManage securityManage;
+    ISecurityManage sm;
 
     @ResponseBody
     @RequestMapping(value = "/devices/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -38,14 +40,22 @@ public class AjaxController {
     @RequestMapping(value = "/users/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @Transactional
     public List<UserJournal> usersall() {
-        return securityManage.findAllUsers();
+        return sm.findAllUsers();
     }
-//
-//    @ResponseBody
-//    @RequestMapping(value = "/forecast", method = RequestMethod.GET, produces = "application/json")
-//    public ForecastVO forecast(@RequestParam("id") Integer id) {
-//        return getServiseData().getForecastById(id);
-//    }
+
+    @ResponseBody
+    @RequestMapping(value = "/users/isexist", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Object forecast(@RequestParam("username") String username) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", username);
+        UserJournal uj = sm.getUser(username);
+        if (null == uj){
+            map.put("exist", false);
+        } else {
+            map.put("exist", true);
+        }
+        return map;
+    }
 //
 //    @ResponseBody
 //    @RequestMapping(value = "/forecast/delete/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)

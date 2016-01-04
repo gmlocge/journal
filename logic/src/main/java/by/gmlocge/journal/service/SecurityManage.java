@@ -1,7 +1,5 @@
 package by.gmlocge.journal.service;
 
-import by.gmlocge.journal.Const;
-import by.gmlocge.journal.entity.security.AuthorityPredefined;
 import by.gmlocge.journal.entity.security.Group;
 import by.gmlocge.journal.entity.security.Authority;
 import by.gmlocge.journal.entity.security.UserJournal;
@@ -144,7 +142,9 @@ public class SecurityManage implements ISecurityManage {
 
     @Override
     public UserJournal loadFullUser(UserJournal user) {
+        if (null == user) return null;
         user = daoUser.findOne(user.getId());
+        if (null == user) return null;
         user.getGroups().size();
         return user;
     }
@@ -152,7 +152,6 @@ public class SecurityManage implements ISecurityManage {
     @Override
     public UserJournal getUser(String username) {
         UserJournal user = daoUser.findOneByUsername(username);
-        user.getGroups().size();
         return user;
     }
 

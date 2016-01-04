@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,10 +25,14 @@ public class UserJournal implements UserDetails {
     private String lastName;
     private String middleName;
 
+    private String phone;
+
     private boolean accountNonLocked = true;
     private boolean enabled = true;
     private boolean credentialsNonExpired = true;
     private boolean accountNonExpired = true;
+
+    private LocalDateTime siginDate;
 
     @ManyToMany
     @JoinTable(schema = Const.SCHEMA)
@@ -41,6 +46,22 @@ public class UserJournal implements UserDetails {
             authorities.addAll(group.getAuthorities());
         }
         return authorities;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public LocalDateTime getSiginDate() {
+        return siginDate;
+    }
+
+    public void setSiginDate(LocalDateTime siginDate) {
+        this.siginDate = siginDate;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public void setEnabled(boolean enabled) {

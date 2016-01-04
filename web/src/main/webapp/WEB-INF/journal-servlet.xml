@@ -91,7 +91,9 @@
 
     </bean>
 
-    <mvc:view-controller path="/login" view-name="j.sec.login"/>
+    <!--<mvc:view-controller path="/" view-name="j.sigin"/>-->
+    <mvc:view-controller path="/sigin" view-name="j.sigin"/>
+    <mvc:view-controller path="/login" view-name="j.login"/>
 
     <!--<mvc:view-controller path="/news.html" view-name="usogdp.index"/>-->
 

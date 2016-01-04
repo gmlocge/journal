@@ -4,7 +4,7 @@
         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 
 <tiles-definitions>
-    <definition name="cms.main" template="/WEB-INF/template/first/template.jsp">
+    <definition name="j.t" template="/WEB-INF/template/templateFirst.jsp">
     <!--<put-attribute name="titleKey" value="programm.defaultkey"/>-->
     <!--<put-attribute name="header" value="/WEB-INF/views/cms/templates/first/header.jsp"/>-->
     <!--<put-attribute name="content" value=""/>-->
@@ -18,10 +18,15 @@
         <!--<put-attribute name="footer" value="/WEB-INF/views/cms/templates/first/footer.jsp"/>-->
     <!--</definition>-->
 
-    <!--<definition extends="cms.main" name="cms.startPage">-->
-        <!--<put-attribute name="titleKey" value="programm.firstPage"/>-->
-        <!--<put-attribute name="content" value="/WEB-INF/views/startPage.jsp"/>-->
-    <!--</definition>-->
+    <definition extends="j.t" name="j.sigin">
+        <put-attribute name="titleKey" value="Добро пожаловать!"/>
+        <put-attribute name="content" value="/WEB-INF/tiles/signin.jsp"/>
+    </definition>
+
+    <definition extends="j.t" name="j.login">
+        <put-attribute name="titleKey" value="Вход"/>
+        <put-attribute name="content" value="/WEB-INF/tiles/login.jsp"/>
+    </definition>
 
     <!--<definition extends="cms.main" name="cms.contacts">-->
         <!--<put-attribute name="titleKey" value="programm.firstPage"/>-->
