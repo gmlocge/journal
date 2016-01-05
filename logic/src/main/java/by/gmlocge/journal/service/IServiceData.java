@@ -10,7 +10,7 @@ import java.util.Set;
 
 @Transactional(readOnly = true)
 
-public interface IServiseData {
+public interface IServiceData {
 
     List<Device> findAllDevices();
 

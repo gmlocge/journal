@@ -1,30 +1,44 @@
 package by.gmlocge.web.controllers;
 
-import by.gmlocge.journal.service.IServiseData;
+import by.gmlocge.journal.entity.security.UserJournal;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 @Controller
 public class UserController {
     private final static Logger logger = LoggerFactory.getLogger(UserController.class);
 
+    @RequestMapping(value = "/signin/registration", method = RequestMethod.POST)
+    public String index(@Valid UserJournal userForm, BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response) {
+        if (bindingResult.hasErrors()) {
+            return "signin";
+        }
 
-    @Autowired
-    private IServiseData serviseData;
-
-    @RequestMapping(value = "/sigin/registration")
-    public String index(HttpServletRequest request, HttpServletResponse response) {
-
-        return "index";
+//        return "redirect:/results";
+        System.out.println("good!");
+        System.out.println(userForm);
+        return "j.login";
     }
+
+    @RequestMapping(value = "/signin")
+    public ModelAndView signin(HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
+        mav.setViewName("j.signin");
+        UserJournal userForm = new UserJournal();
+        mav.addObject("userForm", userForm);
+
+
+        return mav;
+    }
+
 //
 //    @Autowired
 //    IPlanDepartureRepository daoPlan;
@@ -112,11 +126,11 @@ public class UserController {
 //    }
 //
 //    //----------------------геттеры сеттеры-------------------
-//    public IServiseData getServiseData() {
+//    public IServiceData getServiseData() {
 //        return serviseData;
 //    }
 //
-//    public void setServiseData(IServiseData serviseData) {
+//    public void setServiseData(IServiceData serviseData) {
 //        this.serviseData = serviseData;
 //    }
 

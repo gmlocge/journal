@@ -1,13 +1,11 @@
 package by.gmlocge.test;
 
 import by.gmlocge.journal.entity.*;
-import by.gmlocge.journal.entity.security.Authority;
 import by.gmlocge.journal.entity.security.AuthorityPredefined;
 import by.gmlocge.journal.entity.security.Group;
-import by.gmlocge.journal.entity.security.UserJournal;
 import by.gmlocge.journal.repository.*;
 import by.gmlocge.journal.service.ISecurityManage;
-import by.gmlocge.journal.service.IServiseData;
+import by.gmlocge.journal.service.ServiceData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
@@ -46,7 +44,7 @@ public class TestRepositorys {
 
 
     private static void testOne(ApplicationContext ac) {
-        IServiseData serviseData = ac.getBean(IServiseData.class);
+        ServiceData serviseData = ac.getBean(ServiceData.class);
         IDeviceRepository daoDevice = ac.getBean(IDeviceRepository.class);
         IServeRepository daoServe = ac.getBean(IServeRepository.class);
         IOrgRepository daoOrg = ac.getBean(IOrgRepository.class);
@@ -72,7 +70,7 @@ public class TestRepositorys {
     }
 
     private static void testUser(ApplicationContext ac) {
-        IServiseData serviseData = ac.getBean(IServiseData.class);
+        ServiceData serviseData = ac.getBean(ServiceData.class);
         ISecurityManage securityManage = ac.getBean(ISecurityManage.class);
         IUserJournalRepository daoUser = ac.getBean(IUserJournalRepository.class);
 //        IAccountRepository daoAccount = ac.getBean(IAccountRepository.class);

@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
-public class ServiceData implements IServiseData {
+public class ServiceData implements IServiceData {
     private static final Logger logger = LoggerFactory.getLogger(ServiceData.class);
 
     @Autowired

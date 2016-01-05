@@ -39,7 +39,7 @@
     </error-page>
     <error-page>
         <error-code>500</error-code>
-        <location>/WEB-INF/views/error/errortrace.jsp</location>
+        <location>/error/trace</location>
     </error-page>
     <error-page>
         <error-code>404</error-code>
@@ -47,7 +47,6 @@
     </error-page>
     <error-page>
         <error-code>403</error-code>
-        <!--<location>/WEB-INF/views/error/403.jsp</location>-->
         <location>/error/403</location>
     </error-page>
 

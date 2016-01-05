@@ -3,7 +3,7 @@ package by.gmlocge.web.controllers;
 import by.gmlocge.journal.entity.Device;
 import by.gmlocge.journal.entity.security.UserJournal;
 import by.gmlocge.journal.service.ISecurityManage;
-import by.gmlocge.journal.service.IServiseData;
+import by.gmlocge.journal.service.IServiceData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class AjaxSecurityController {
     private static final Logger logger = LoggerFactory.getLogger(AjaxSecurityController.class);
 
     @Autowired
-    IServiseData serviseData;
+    IServiceData serviseData;
     @Autowired
     ISecurityManage securityManage;
 
@@ -162,11 +162,11 @@ public class AjaxSecurityController {
 //    }
 //
 //    // getter and setters
-//    public IServiseData getServiseData() {
+//    public IServiceData getServiseData() {
 //        return serviseData;
 //    }
 //
-//    public void setServiseData(IServiseData serviseData) {
+//    public void setServiseData(IServiceData serviseData) {
 //        this.serviseData = serviseData;
 //    }
 //

@@ -46,7 +46,7 @@
         <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
-        <!--<property name="order" value="2"/>-->
+        <property name="order" value="2"/>
     </bean>
 
 
@@ -71,7 +71,7 @@
     </bean>
 
     <bean id="tilesViewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">
-    <!--<property name="order" value="2"/>-->
+    <property name="order" value="1"/>
     </bean>
 
 
@@ -92,7 +92,7 @@
     </bean>
 
     <!--<mvc:view-controller path="/" view-name="j.sigin"/>-->
-    <mvc:view-controller path="/sigin" view-name="j.sigin"/>
+    <!--<mvc:view-controller path="/sigin" view-name="j.sigin"/>-->
     <mvc:view-controller path="/login" view-name="j.login"/>
 
     <!--<mvc:view-controller path="/news.html" view-name="usogdp.index"/>-->
@@ -116,9 +116,9 @@
     <!--<mvc:view-controller path="/reference" view-name="usogdp.reference"/>-->
     <!--<mvc:view-controller path="/texpage" view-name="usogdp.texpage"/>-->
 
-    <!--<mvc:view-controller path="/error/trace" view-name="error.trace"/>-->
-    <!--<mvc:view-controller path="/error/403" view-name="error.403"/>-->
-    <!--<mvc:view-controller path="/error/404" view-name="error.404"/>-->
+    <mvc:view-controller path="/error/trace" view-name="j.error.trace"/>
+    <mvc:view-controller path="/error/403" view-name="j.error.403"/>
+    <mvc:view-controller path="/error/404" view-name="j.error.404"/>
 
 
 </beans>

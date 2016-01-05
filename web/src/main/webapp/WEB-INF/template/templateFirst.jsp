@@ -18,7 +18,7 @@
         }
         html, body {
             height: 100%;
-            padding-top: 25px;
+            padding-top: 30px;
             padding-bottom: 0;
         }
         #wrapper {
@@ -29,7 +29,7 @@
         #center {
             display: table-row;
             height: 100%;
-            background: auto;
+            /*background: auto;*/
         }
         footer {
             height: 15px;

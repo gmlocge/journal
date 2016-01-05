@@ -1,29 +1,20 @@
 package by.gmlocge.web.controllers;
-import by.gmlocge.journal.entity.security.UserJournal;
-import by.gmlocge.journal.service.IServiseData;
-import by.gmlocge.web.security.CurrentUserWeb;
+import by.gmlocge.journal.service.ServiceData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.*;
 
 @Controller
 public class MainController {
     private final static Logger logger = LoggerFactory.getLogger(MainController.class);
 
-
-    @Autowired
-    private IServiseData serviseData;
 
     @RequestMapping(value = "/glavnaya")
     public String index(HttpServletRequest request, HttpServletResponse response, @AuthenticationPrincipal Authentication authentication) {
@@ -117,11 +108,11 @@ public class MainController {
 //    }
 //
 //    //----------------------геттеры сеттеры-------------------
-//    public IServiseData getServiseData() {
+//    public IServiceData getServiseData() {
 //        return serviseData;
 //    }
 //
-//    public void setServiseData(IServiseData serviseData) {
+//    public void setServiseData(IServiceData serviseData) {
 //        this.serviseData = serviseData;
 //    }
 

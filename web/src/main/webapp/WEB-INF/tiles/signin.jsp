@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <style>
     .form-group.required .control-label:after {
         content: "*";
@@ -11,11 +12,15 @@
     <div class="row">
         <div class="col-lg-8"></div>
         <div class="col-lg-4">
-            <form id="signin" class="form-signin">
+
+            <form:form id="signin" method="post" modelAttribute="userForm" action="${ctx}/signin/registration"
+                       class="form-signin">
+                <%--<form id="signin" class="form-signin" action="${ctx}/signin/registation" method="post" modelAttribute="userForm">--%>
                 <h2 class="form-signin-heading">Регистрация</h2>
                 <div class="form-group">
-                    <input class="form-control" id="inp-login" placeholder="Логин" required>
-                    <div class="help-block with-errors"></div>
+                    <%--<input class="form-control" id="inp-login" placeholder="Логин" required>--%>
+                    <form:input path="username" type="text" class="form-control" id="inp-login" placeholder="Логин" required="true"/>
+                    <div class="help-block with-errors"><form:errors path="username"/></div>
                 </div>
                 <div class="form-group">
                     <input class="form-control" id="inp-f" placeholder="Фамилия" required>
@@ -49,7 +54,9 @@
                 <%--</label>--%>
                 <%--</div>--%>
                 <button class="btn btn-primary " type="submit">Присоедениться</button>
-            </form>
+                <%--</form>--%>
+            </form:form>
+
         </div>
     </div>
 
@@ -58,13 +65,5 @@
 
 <script>
 
-    $(document).ready(function () {
-        $("#form").formValidation({
-            icon: {
-                valid: 'glyphicon glyphicon-ok',
-                invalid: 'glyphicon glyphicon-remove',
-                validating: 'glyphicon glyphicon-refresh'
-            }
-        });
-    });
+
 </script>

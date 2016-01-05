@@ -1,10 +1,9 @@
 package by.gmlocge.web.controllers;
 
-import by.gmlocge.dao.generic.DaoException;
 import by.gmlocge.journal.entity.Device;
 import by.gmlocge.journal.entity.security.UserJournal;
 import by.gmlocge.journal.service.ISecurityManage;
-import by.gmlocge.journal.service.IServiseData;
+import by.gmlocge.journal.service.IServiceData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +22,7 @@ public class AjaxController {
     private static final Logger logger = LoggerFactory.getLogger(AjaxController.class);
 
     @Autowired
-    IServiseData serviseData;
+    IServiceData serviseData;
     @Autowired
     ISecurityManage sm;
 
@@ -174,11 +170,11 @@ public class AjaxController {
 //    }
 //
 //    // getter and setters
-//    public IServiseData getServiseData() {
+//    public IServiceData getServiseData() {
 //        return serviseData;
 //    }
 //
-//    public void setServiseData(IServiseData serviseData) {
+//    public void setServiseData(IServiceData serviseData) {
 //        this.serviseData = serviseData;
 //    }
 //

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,12 +18,17 @@ public class UserJournal implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(unique = true, nullable = false)
+    @Size(min=4, max=25, message = "Не менее 4 и не более 25")
     private String username; // as login
     @Column(nullable = false)
+    @Size(min=5, max=30, message = "Не менее 5 и не более 25")
     private String password;
 
+    @Size(min=3, max=25, message = "Не менее 3 и не более 25")
     private String firstName;
+    @Size(min=3, max=25, message = "Не менее 3 и не более 25")
     private String lastName;
+    @Size(min=3, max=25, message = "Не менее 3 и не более 25")
     private String middleName;
 
     private String phone;

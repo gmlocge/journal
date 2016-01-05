@@ -5,7 +5,7 @@
 
 <tiles-definitions>
     <definition name="j.t" template="/WEB-INF/template/templateFirst.jsp">
-    <!--<put-attribute name="titleKey" value="programm.defaultkey"/>-->
+    <put-attribute name="titleKey" value=""/>
     <!--<put-attribute name="header" value="/WEB-INF/views/cms/templates/first/header.jsp"/>-->
     <!--<put-attribute name="content" value=""/>-->
     <!--<put-attribute name="footer" value="/WEB-INF/views/cms/templates/first/footer.jsp"/>-->
@@ -18,7 +18,7 @@
         <!--<put-attribute name="footer" value="/WEB-INF/views/cms/templates/first/footer.jsp"/>-->
     <!--</definition>-->
 
-    <definition extends="j.t" name="j.sigin">
+    <definition extends="j.t" name="j.signin">
         <put-attribute name="titleKey" value="Добро пожаловать!"/>
         <put-attribute name="content" value="/WEB-INF/tiles/signin.jsp"/>
     </definition>
@@ -49,15 +49,6 @@
     <!--&lt;!&ndash;</definition>&ndash;&gt;-->
 
 
-    <!--<definition extends="cms.main" name="cms.error.403">-->
-        <!--<put-attribute name="content" value="/WEB-INF/views/error/403.jsp"/>-->
-    <!--</definition>-->
-    <!--<definition extends="cms.main" name="cms.error.404">-->
-        <!--<put-attribute name="content" value="/WEB-INF/views/error/404.jsp"/>-->
-    <!--</definition>-->
-    <!--<definition extends="cms.main" name="cms.error.trace">-->
-        <!--<put-attribute name="content" value="/WEB-INF/views/error/errortrace.jsp"/>-->
-    <!--</definition>-->
 
     <!--&lt;!&ndash;<definition name="editredirectview" template="/WEB-INF/views/redirectview/redirectViewEdit.jsp">&ndash;&gt;-->
     <!--&lt;!&ndash;</definition>&ndash;&gt;-->
@@ -74,5 +65,14 @@
 
     <!--&lt;!&ndash;Для использования страниц тайлес в динамическом контенте, пожалуйста добавляйте спереди префикс dc , как в следующем примере&ndash;&gt;-->
     <!--<definition name="dc.api" template="/WEB-INF/views/cms/blocks/apitest.jsp"/>-->
+    <definition extends="j.t" name="j.error.403">
+        <put-attribute name="content" value="/WEB-INF/views/error/403.jsp"/>
+    </definition>
+    <definition extends="j.t" name="j.error.404">
+        <put-attribute name="content" value="/WEB-INF/views/error/404.jsp"/>
+    </definition>
+    <definition extends="j.t" name="j.error.trace">
+        <put-attribute name="content" value="/WEB-INF/views/error/errortrace.jsp"/>
+    </definition>
 
 </tiles-definitions>
