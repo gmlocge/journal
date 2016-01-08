@@ -11,7 +11,7 @@ import javax.servlet.ServletRegistration;
 /**
  * Created by dima on 03.11.2014.
  */
-public class PGDPWebApplicationInitializer implements WebApplicationInitializer {
+public class WebAppInitializer implements WebApplicationInitializer {
     public static XmlWebApplicationContext webApplicationContext;
 
     @Override

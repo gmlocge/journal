@@ -22,7 +22,7 @@
         <target.directory>${basedir}/target</target.directory>
 
         <java.version>1.8</java.version>
-        <project.build.sourceEncoding>UTF8</project.build.sourceEncoding>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.version>4.2.4.RELEASE</spring.version>
         <spring.security.version>4.0.3.RELEASE</spring.security.version>
         <spring.data.version>1.9.2.RELEASE</spring.data.version>
@@ -35,6 +35,7 @@
         <h2.driver.version>1.4.190</h2.driver.version>
 
         <maven.compiler.plugin>3.3</maven.compiler.plugin>
+        <maven.resources.plugin>2.7</maven.resources.plugin>
         <maven.jar.plugin>2.6</maven.jar.plugin>
         <maven.war.plugin>2.6</maven.war.plugin>
     </properties>

@@ -150,7 +150,7 @@ public class SecurityManage implements ISecurityManage {
     }
 
     @Override
-    public UserJournal getUser(String username) {
+    public UserJournal findUser(String username) {
         UserJournal user = daoUser.findOneByUsername(username);
         return user;
     }

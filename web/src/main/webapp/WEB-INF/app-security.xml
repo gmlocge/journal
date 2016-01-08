@@ -44,7 +44,7 @@
 
 
         <!--<intercept-url pattern="/src/rw/ktc/cms/web/form" access="permitAll"/>-->
-        <!--<intercept-url pattern="/index.jsp" access="permitAll" />-->
+        <!--<intercept-url pattern="/1index.jsp" access="permitAll" />-->
         <!--<intercept-url pattern="/rw/ktc/cms/nodedata" access="permitAll"/>-->
     </http>
 

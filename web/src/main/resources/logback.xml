@@ -32,7 +32,10 @@
     <logger name="org.springframework" level="WARN" additivity="false">
         <appender-ref ref="a_console"/>
     </logger>
-    <logger name="org.springframework.web" level="DEBUG" additivity="false">
+    <logger name="org.springframework.context" level="DEBUG" additivity="false">
+        <appender-ref ref="a_console"/>
+    </logger>
+    <logger name="org.springframework.web" level="WARN" additivity="false">
         <appender-ref ref="a_console"/>
     </logger>
 
@@ -43,7 +46,7 @@
         <appender-ref ref="a_console"/>
     </logger>
 
-    <root level="DEBUG">
+    <root level="WARN">
         <appender-ref ref="a_console"/>
     </root>
 </configuration>

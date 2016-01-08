@@ -8,6 +8,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><tiles:getAsString name="titleKey"/></title>
+    <meta name="_csrf" content="${_csrf.token}"/>
+    <!-- default header name is X-CSRF-TOKEN -->
+    <meta name="_csrf_header" content="${_csrf.headerName}"/>
+
     <%--<link href="${ctx}/resources/favicon.ico" rel="shortcut icon">--%>
     <%--<link rel="stylesheet" type="text/css" href="${ctx}/resources/css/usogdp.css"/>--%>
     <jsp:include page="/WEB-INF/template/includes.jsp"/>
@@ -32,7 +36,7 @@
             /*background: auto;*/
         }
         footer {
-            height: 15px;
+            height: 20px;
             background: #f5f5f5;
         }
     </style>

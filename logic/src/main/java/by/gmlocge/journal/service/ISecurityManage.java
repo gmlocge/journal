@@ -31,7 +31,7 @@ public interface ISecurityManage {
 
     UserJournal loadFullUser(UserJournal user);
 
-    UserJournal getUser(String username);
+    UserJournal findUser(String username);
     Set<Authority> getUserAuthority(UserJournal userJournal);
 
     UserJournal  createUser(String username, String password) throws EntityExistsException;

@@ -44,7 +44,7 @@ public class AjaxController {
     public Object forecast(@RequestParam("username") String username) {
         Map<String, Object> map = new HashMap<>();
         map.put("name", username);
-        UserJournal uj = sm.getUser(username);
+        UserJournal uj = sm.findUser(username);
         if (null == uj){
             map.put("exist", false);
         } else {

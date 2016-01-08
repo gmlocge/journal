@@ -30,7 +30,7 @@
 <%--Статическая часть меню--%>
 
 <div class="btn-group">
-    <a href="${ctx}/index.jsp" class="menuinh">Журнал</a>
+    <a href="${ctx}/" class="menuinh">Журнал</a>
 </div>
 <span id="betw-items">|</span>
 <div class="btn-group">

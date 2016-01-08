@@ -8,17 +8,18 @@
     <script>var timeRender = "${timeRender}"</script>
     <style>
         .f-line-wrap {
-            padding-top: 5px;
             font-size: 12px;
-            line-height: 15px;
+            line-height: 16px;
             padding: 0 10px;
         }
 
         .ft-l {
+            padding-top: 2px;
             float: left;
         }
 
         .ft-r {
+            padding-top: 2px;
             font-size: 10px;
             float: right;
         }

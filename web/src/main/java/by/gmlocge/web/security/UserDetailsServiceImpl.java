@@ -5,14 +5,11 @@ import by.gmlocge.journal.service.ISecurityManage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Set;
 
 @Service
 @Transactional(readOnly = true)
@@ -24,7 +21,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         logger.debug("Ищем в базе юзера по его имени");
-        UserJournal uj = securityManage.getUser(username);
+        UserJournal uj = securityManage.findUser(username);
         if (null == uj) throw new UsernameNotFoundException("user with given name(" + username + ") not found");
         uj = securityManage.loadFullUser(uj);
 //        Set<String> per = securityManage.getUserPermissions(uj);

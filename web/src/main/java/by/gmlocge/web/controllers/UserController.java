@@ -1,10 +1,13 @@
 package by.gmlocge.web.controllers;
 
 import by.gmlocge.journal.entity.security.UserJournal;
+import by.gmlocge.journal.service.ISecurityManage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,27 +20,57 @@ import javax.validation.Valid;
 public class UserController {
     private final static Logger logger = LoggerFactory.getLogger(UserController.class);
 
-    @RequestMapping(value = "/signin/registration", method = RequestMethod.POST)
-    public String index(@Valid UserJournal userForm, BindingResult bindingResult, HttpServletRequest request, HttpServletResponse response) {
-        if (bindingResult.hasErrors()) {
-            return "signin";
-        }
+    @Autowired
+    ISecurityManage sm;
 
-//        return "redirect:/results";
-        System.out.println("good!");
-        System.out.println(userForm);
-        return "j.login";
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String index() {
+        return "forward:/signin";
     }
 
-    @RequestMapping(value = "/signin")
-    public ModelAndView signin(HttpServletRequest request, HttpServletResponse response, ModelAndView mav) {
+    @RequestMapping(value = "/signin", method = RequestMethod.GET)
+    public ModelAndView showSignin(ModelAndView mav) {
         mav.setViewName("j.signin");
-        UserJournal userForm = new UserJournal();
-        mav.addObject("userForm", userForm);
+//        userForm userForm = new userForm();
+        mav.addObject("userForm", new UserJournal());
+        return mav;
+    }
 
+    @RequestMapping(value = "/signin", method = RequestMethod.POST)
+    public ModelAndView signinComplete(@ModelAttribute("userForm") @Valid final UserJournal userForm, final BindingResult result, ModelAndView mav) {
+        if (result.hasErrors()) {
+//            mav.addObject("userForm", userForm);
+            mav.setViewName("j.signin");
+            return mav;
+        }
+        UserJournal uj = sm.findUser(userForm.getUsername());
+        if (null != uj) {
+            result.rejectValue("username", "userForm.username.exist");
+            mav.setViewName("j.signin");
+            return mav;
+        }
+
+        mav.setViewName("j.login");
+//        userForm = new userForm();
+//        mav.addObject("userForm", userForm);
 
         return mav;
     }
+
+//    @RequestMapping(value = "/signin/registration", method = RequestMethod.POST)
+//    public ModelAndView index(@Valid userForm userForm, BindingResult bindingResult, ModelAndView mav, HttpServletRequest request, HttpServletResponse response) {
+//        if (bindingResult.hasErrors()) {
+//            mav.addObject("userForm", userForm);
+//            mav.setViewName("j.signin");
+//            return mav;
+//        }
+//        mav.setViewName("j.login");
+//
+////        return "redirect:/results";
+//        System.out.println("good!");
+//        System.out.println(userForm);
+//        return mav;
+//    }
 
 //
 //    @Autowired

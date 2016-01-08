@@ -65,12 +65,12 @@
 
     <!--&lt;!&ndash;Для использования страниц тайлес в динамическом контенте, пожалуйста добавляйте спереди префикс dc , как в следующем примере&ndash;&gt;-->
     <!--<definition name="dc.api" template="/WEB-INF/views/cms/blocks/apitest.jsp"/>-->
-    <definition extends="j.t" name="j.error.403">
-        <put-attribute name="content" value="/WEB-INF/views/error/403.jsp"/>
+    <definition extends="j.t" name="j.error.*">
+        <put-attribute name="content" value="/WEB-INF/views/error/{1}.jsp"/>
     </definition>
-    <definition extends="j.t" name="j.error.404">
-        <put-attribute name="content" value="/WEB-INF/views/error/404.jsp"/>
-    </definition>
+    <!--<definition extends="j.t" name="j.error.404">-->
+        <!--<put-attribute name="content" value="/WEB-INF/views/error/404.jsp"/>-->
+    <!--</definition>-->
     <definition extends="j.t" name="j.error.trace">
         <put-attribute name="content" value="/WEB-INF/views/error/errortrace.jsp"/>
     </definition>
