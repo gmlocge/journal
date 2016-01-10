@@ -6,7 +6,7 @@
 <spring:bind path="${param.path}">
     <div class="form-group has-feedback <%= status.isError() ? "has-error" : null != status.getActualValue() ? "has-success" : "" %>">
         <form:input path="${param.path}" type="${param.type}" class="form-control" placeholder="${param.placeholder}"
-                    required="true"/>
+                    />
         <% if (status.isError()) {%>
         <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
         <span id="inputSuccess2Status" class="sr-only">(error)</span>

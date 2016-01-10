@@ -35,6 +35,9 @@ public interface ISecurityManage {
     Set<Authority> getUserAuthority(UserJournal userJournal);
 
     UserJournal  createUser(String username, String password) throws EntityExistsException;
+
+    UserJournal createUser(UserJournal userJournal);
+
     UserJournal  createUserIfNotExist(String username, String password);
 
     UserJournal addGroupsToUser(UserJournal user, Set<Group> groups);

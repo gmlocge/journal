@@ -44,7 +44,7 @@
             </list>
         </property>
         <property name="defaultEncoding" value="UTF-8"/>
-        <property name="cacheSeconds" value="2" />
+        <property name="cacheSeconds" value="2"/>
     </bean>
 
     <bean id="sortResolver" class="org.springframework.data.web.SortHandlerMethodArgumentResolver"/>
@@ -105,8 +105,9 @@
                 xml=application/xml
             </value>
         </property>
-
     </bean>
+
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
 
     <!--<mvc:view-controller path="/" view-name="j.sigin"/>-->
     <!--<mvc:view-controller path="/sigin" view-name="j.sigin"/>-->

@@ -1,5 +1,6 @@
 package by.gmlocge.journal.service;
 
+import by.gmlocge.journal.Const;
 import by.gmlocge.journal.entity.security.Group;
 import by.gmlocge.journal.entity.security.Authority;
 import by.gmlocge.journal.entity.security.UserJournal;
@@ -130,6 +131,16 @@ public class SecurityManage implements ISecurityManage {
         }
         throw new EntityExistsException("user with given name already exist:" + userJournal);
     }
+
+    @Override
+    public UserJournal createUser(UserJournal userJournal) {
+        Group base = daoGroup.findOneByName(Const.NAME_BASE_GROUP);
+        userJournal.getGroups().add(base);
+        userJournal = daoUser.save(userJournal);
+        logger.trace("создаем пользователя - " + userJournal);
+        return userJournal;
+    }
+
 
     @Override
     public UserJournal createUserIfNotExist(String username, String password) {

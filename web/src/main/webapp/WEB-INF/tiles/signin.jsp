@@ -3,15 +3,27 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <style>
     /*.form-group.required .control-label:after {*/
-        /*content: "*";*/
-        /*color: red;*/
+    /*content: "*";*/
+    /*color: red;*/
     /*}*/
 </style>
 <div class="container">
     <div class="row">
-        <div class="col-lg-8"></div>
+        <div class="col-lg-8">
+            <c:if test="${not empty pageContext.request.userPrincipal}">
+                <%--<%=request.getUserPrincipal()%>--%>
+                <div>
+                    <p class="text-danger"><sec:authentication property="principal.authorities"/></p>
+                </div>
+
+            </c:if>
+            <sec:authorize access="isAuthenticated()">
+                <sec:authentication property="principal.username"/>
+            </sec:authorize>
+        </div>
         <div class="col-lg-4">
             <form:form id="signin" class="form-signin" action="${ctx}/signin" method="post" modelAttribute="userForm">
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

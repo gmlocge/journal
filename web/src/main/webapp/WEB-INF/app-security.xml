@@ -12,20 +12,20 @@
     <http security="none" pattern="/webjars/**"/>
     <http security="none" pattern="/favicon.ico"/>
 
-    <http use-expressions="true" once-per-request="false" auto-config="true" >
-        <session-management >
-            <concurrency-control max-sessions="1" />
+    <http use-expressions="true" once-per-request="false" auto-config="true">
+        <session-management>
+            <concurrency-control max-sessions="1"/>
         </session-management>
 
         <headers>
             <frame-options policy="SAMEORIGIN"/>
         </headers>
-        <access-denied-handler error-page="/error/403" />
+        <access-denied-handler error-page="/error/403"/>
 
-        <form-login login-processing-url="/login" login-page="/login"
-                    username-parameter="username" password-parameter="password" authentication-failure-url="/login?auth=fail" />
+        <form-login login-processing-url="/login" login-page="/login" username-parameter="username"
+                    password-parameter="password" authentication-failure-url="/login?auth=fail"/>
 
-        <logout logout-url="/j_spring_security_logout" logout-success-url="/" invalidate-session="true" delete-cookies="true" />
+        <logout logout-url="/logout" logout-success-url="/" invalidate-session="true" delete-cookies="true"/>
 
         <!--<intercept-url pattern="/ajax/api1/dc/**" access="hasRole('ROLE_DYNCONT_CRUD')"/>-->
         <!--<intercept-url pattern="/ajax/api1/profile/**" access="hasRole('ROLE_ADMIN_SETTINGS')"/>-->
@@ -50,11 +50,12 @@
 
     <context:component-scan base-package="by.gmlocge.web.security"/>
 
-    <beans:bean id="http403EntryPoint" class="org.springframework.security.web.authentication.Http403ForbiddenEntryPoint">
+    <beans:bean id="http403EntryPoint"
+                class="org.springframework.security.web.authentication.Http403ForbiddenEntryPoint">
     </beans:bean>
 
     <authentication-manager>
-        <authentication-provider user-service-ref="userDetailsServiceImpl" />
+        <authentication-provider user-service-ref="userDetailsServiceImpl"/>
     </authentication-manager>
 
 </beans:beans>

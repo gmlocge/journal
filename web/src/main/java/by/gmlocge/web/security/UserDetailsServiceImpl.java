@@ -20,7 +20,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private ISecurityManage securityManage;
 
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        logger.debug("Ищем в базе юзера по его имени");
+        logger.trace("Ищем в базе юзера по его имени");
         UserJournal uj = securityManage.findUser(username);
         if (null == uj) throw new UsernameNotFoundException("user with given name(" + username + ") not found");
         uj = securityManage.loadFullUser(uj);

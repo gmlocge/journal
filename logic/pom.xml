@@ -8,7 +8,6 @@
     </parent>
 
     <artifactId>journal-logic</artifactId>
-    <version>0.1</version>
     <packaging>jar</packaging>
 
     <dependencies>

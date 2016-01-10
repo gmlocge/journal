@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!-- use it for correct load static resourses -->
 <c:set var="ctx" scope="request" value="${pageContext.request.contextPath}"/>
-<%--<c:set var="verBootstrap" scope="request" value="4.0.0-alpha"/>--%>
+<%-- <c:set var="verBootstrap" scope="request" value="4.0.0-alpha"/> --%>
 <c:set var="verBootstrap" scope="request" value="3.3.6"/>
 <%--for client side , ex. ajax in javaScript--%>
 <script>var ctx = "${ctx}";</script>

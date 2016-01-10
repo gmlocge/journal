@@ -18,7 +18,7 @@ public class UserJournal implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(unique = true, nullable = false)
-    @Size(min=4, max=25)
+    @Size(min=2, max=25)
     private String username; // as login
     @Column(nullable = false)
     @Size(min=5, max=30)

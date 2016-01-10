@@ -1,22 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--<sec:authorize access="hasRole('ROLE_USOGDP')">--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--<c:forEach var="mainItem" items="${usogdpmenu.menuItems}">--%>
-<%--<div class="btn-group">--%>
-<%--<button class="btn btn-default btn-xs dropdown-toggle" type="button" data-toggle="dropdown"--%>
-<%--aria-haspopup="true" aria-expanded="false">${mainItem.name} <span class="caret"></span></button>--%>
-<%--<ul class="dropdown-menu">--%>
-<%--<c:forEach var="item" items="${mainItem.children}">--%>
-<%--<c:if test="${not empty item.urlSystem}">--%>
-<%--<li><a href="${item.urlSystem}${item.url}">${item.name}</a></li>--%>
-<%--</c:if>--%>
-<%--<c:if test="${empty item.urlSystem}">--%>
-<%--<li><a href="${item.url}">${item.name}</a></li>--%>
-<%--</c:if>--%>
-<%--</c:forEach>--%>
-<%--</ul>--%>
-<%--</div>--%>
-<%--</c:forEach>--%>
 
 <style>
     #betw-items{
@@ -27,7 +10,6 @@
         color: #333333;
     }
 </style>
-<%--Статическая часть меню--%>
 
 <div class="btn-group">
     <a href="${ctx}/" class="menuinh">Журнал</a>

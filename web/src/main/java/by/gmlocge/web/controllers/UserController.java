@@ -2,11 +2,22 @@ package by.gmlocge.web.controllers;
 
 import by.gmlocge.journal.entity.security.UserJournal;
 import by.gmlocge.journal.service.ISecurityManage;
+import by.gmlocge.web.validator.UserFormValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.Validator;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,7 +32,19 @@ public class UserController {
     private final static Logger logger = LoggerFactory.getLogger(UserController.class);
 
     @Autowired
-    ISecurityManage sm;
+    protected Validator userFormValidator;
+
+    @Autowired
+    @Qualifier("userDetailsServiceImpl")
+    protected UserDetailsService userDetailsService;
+
+    @InitBinder("userForm")
+    protected void initBinder(WebDataBinder binder) {
+        binder.setValidator(userFormValidator);
+    }
+
+    @Autowired
+    protected ISecurityManage sm;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index() {
@@ -39,23 +62,21 @@ public class UserController {
     @RequestMapping(value = "/signin", method = RequestMethod.POST)
     public ModelAndView signinComplete(@ModelAttribute("userForm") @Valid final UserJournal userForm, final BindingResult result, ModelAndView mav) {
         if (result.hasErrors()) {
-//            mav.addObject("userForm", userForm);
             mav.setViewName("j.signin");
             return mav;
         }
-        UserJournal uj = sm.findUser(userForm.getUsername());
-        if (null != uj) {
-            result.rejectValue("username", "userForm.username.exist");
-            mav.setViewName("j.signin");
-            return mav;
-        }
-
-        mav.setViewName("j.login");
+        UserJournal uj = sm.createUser(userForm);
+        UserDetails ud = userDetailsService.loadUserByUsername(uj.getUsername());
+        Authentication authentication = new UsernamePasswordAuthenticationToken(ud, ud.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        mav.setViewName("redirect:/");
 //        userForm = new userForm();
 //        mav.addObject("userForm", userForm);
-
         return mav;
     }
+
+
+
 
 //    @RequestMapping(value = "/signin/registration", method = RequestMethod.POST)
 //    public ModelAndView index(@Valid userForm userForm, BindingResult bindingResult, ModelAndView mav, HttpServletRequest request, HttpServletResponse response) {
