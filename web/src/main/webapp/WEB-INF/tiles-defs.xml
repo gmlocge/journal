@@ -17,6 +17,10 @@
         <!--&lt;!&ndash;<put-attribute name="content" value=""/>&ndash;&gt;-->
         <!--<put-attribute name="footer" value="/WEB-INF/views/cms/templates/first/footer.jsp"/>-->
     <!--</definition>-->
+    <definition extends="j.t" name="j.welcome">
+        <put-attribute name="titleKey" value="Добро пожаловать!"/>
+        <put-attribute name="content" value="/WEB-INF/tiles/mainpage.jsp"/>
+    </definition>
 
     <definition extends="j.t" name="j.signin">
         <put-attribute name="titleKey" value="Добро пожаловать!"/>

@@ -29,20 +29,20 @@
                 <sec:authorize access="isAuthenticated()">
                     <jsp:include page="headermenu.jsp"/>
                 </sec:authorize>
-                <sec:authorize access="!isAuthenticated()">
-                <form class="navbar-form navbar-right" action="${ctx}/login" method="post">
-                    <div class="form-group ">
-                        <input id="username" name="username" type="text" placeholder="Логин"
-                               class="form-control col-md-1">
-                    </div>
-                    <div class="form-group ">
-                        <input id="password" name="password" type="password" placeholder="Пароль"
-                               class="form-control col-md-1">
-                    </div>
-                    <button type="submit" class="btn btn-success">Войти</button>
-                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                </form>
-                </sec:authorize>
+                <%--<sec:authorize access="!isAuthenticated()">--%>
+                <%--<form class="navbar-form navbar-right" action="${ctx}/login" method="post">--%>
+                    <%--<div class="form-group ">--%>
+                        <%--<input id="username" name="username" type="text" placeholder="Логин"--%>
+                               <%--class="form-control col-md-1">--%>
+                    <%--</div>--%>
+                    <%--<div class="form-group ">--%>
+                        <%--<input id="password" name="password" type="password" placeholder="Пароль"--%>
+                               <%--class="form-control col-md-1">--%>
+                    <%--</div>--%>
+                    <%--<button type="submit" class="btn btn-success">Войти</button>--%>
+                    <%--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
+                <%--</form>--%>
+                <%--</sec:authorize>--%>
             </div><!--/.navbar-collapse -->
         </div>
     </nav>

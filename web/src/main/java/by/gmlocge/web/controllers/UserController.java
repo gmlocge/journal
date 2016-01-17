@@ -48,7 +48,14 @@ public class UserController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index() {
-        return "forward:/signin";
+        return "forward:/welcome";
+    }
+
+    @RequestMapping(value = "/welcome", method = RequestMethod.GET)
+    public ModelAndView showMain(ModelAndView mav) {
+        mav.setViewName("j.welcome");
+        mav.addObject("userForm", new UserJournal());
+        return mav;
     }
 
     @RequestMapping(value = "/signin", method = RequestMethod.GET)
