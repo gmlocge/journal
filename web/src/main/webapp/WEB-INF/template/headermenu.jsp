@@ -17,7 +17,7 @@
             property="principal.username"/> <span class="caret"></span></a>
         <ul class="dropdown-menu">
             <li><a href="">Настройки</a></li>
-            <li><a href="">Смена пароля</a></li>
+            <li><a href="${ctx}/user/password/update">Смена пароля</a></li>
             <li>
                 <a href="">
                 <sec:authorize access="isAuthenticated()">

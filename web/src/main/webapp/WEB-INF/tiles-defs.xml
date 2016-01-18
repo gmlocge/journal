@@ -11,12 +11,23 @@
     <!--<put-attribute name="footer" value="/WEB-INF/views/cms/templates/first/footer.jsp"/>-->
     </definition>
 
+    <definition name="j.t.center" template="/WEB-INF/template/templateCenter.jsp">
+        <put-attribute name="titleKey" value=""/>
+        <put-attribute name="headerOnPage" value=""/>
+    </definition>
+
     <!--<definition name="cms.main" template="/WEB-INF/views/cms/templates/first/shablon.jsp">-->
         <!--<put-attribute name="titleKey" value="programm.defaultkey"/>-->
         <!--<put-attribute name="header" value="/WEB-INF/views/cms/templates/first/header.jsp"/>-->
         <!--&lt;!&ndash;<put-attribute name="content" value=""/>&ndash;&gt;-->
         <!--<put-attribute name="footer" value="/WEB-INF/views/cms/templates/first/footer.jsp"/>-->
     <!--</definition>-->
+    <definition extends="j.t.center" name="j.password">
+        <put-attribute name="titleKey" value="Смена пароля!"/>
+        <put-attribute name="headerOnPage" value="Смена пароля!"/>
+        <put-attribute name="content" value="/WEB-INF/tiles/b-password.jsp"/>
+    </definition>
+
     <definition extends="j.t" name="j.welcome">
         <put-attribute name="titleKey" value="Добро пожаловать!"/>
         <put-attribute name="content" value="/WEB-INF/tiles/mainpage.jsp"/>

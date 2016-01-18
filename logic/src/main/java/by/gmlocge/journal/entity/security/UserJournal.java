@@ -21,7 +21,7 @@ public class UserJournal implements UserDetails {
     @Size(min=2, max=25)
     private String username; // as login
     @Column(nullable = false)
-    @Size(min=5, max=30)
+    @Size(min=4, max=30)
     private String password;
 
     @Size(min=2, max=25)

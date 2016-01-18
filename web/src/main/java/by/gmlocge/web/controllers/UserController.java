@@ -2,6 +2,8 @@ package by.gmlocge.web.controllers;
 
 import by.gmlocge.journal.entity.security.UserJournal;
 import by.gmlocge.journal.service.ISecurityManage;
+import by.gmlocge.web.form.PasswordForm;
+import by.gmlocge.web.security.CurrentAuthUser;
 import by.gmlocge.web.validator.UserFormValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -35,12 +38,20 @@ public class UserController {
     protected Validator userFormValidator;
 
     @Autowired
+    protected Validator passwordFormValidator;
+
+    @Autowired
     @Qualifier("userDetailsServiceImpl")
     protected UserDetailsService userDetailsService;
 
     @InitBinder("userForm")
-    protected void initBinder(WebDataBinder binder) {
+    protected void initBinder1(WebDataBinder binder) {
         binder.setValidator(userFormValidator);
+    }
+
+    @InitBinder("passwordForm")
+    protected void initBinder2(WebDataBinder binder) {
+        binder.setValidator(passwordFormValidator);
     }
 
     @Autowired
@@ -73,16 +84,47 @@ public class UserController {
             return mav;
         }
         UserJournal uj = sm.createUser(userForm);
-        UserDetails ud = userDetailsService.loadUserByUsername(uj.getUsername());
-        Authentication authentication = new UsernamePasswordAuthenticationToken(ud, ud.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        authenticate(uj);
         mav.setViewName("redirect:/");
 //        userForm = new userForm();
 //        mav.addObject("userForm", userForm);
         return mav;
     }
 
+    private void authenticate(UserJournal uj) {
+        UserDetails ud = userDetailsService.loadUserByUsername(uj.getUsername());
+        Authentication authentication = new UsernamePasswordAuthenticationToken(ud, ud.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+    }
 
+    @RequestMapping(value = "/user/password/update", method = RequestMethod.GET)
+    public ModelAndView passwordFormGet(ModelAndView mav) {
+        mav.setViewName("j.password");
+        mav.addObject("passwordForm", new PasswordForm());
+        return mav;
+    }
+
+
+    @RequestMapping(value = "/user/password/update", method = RequestMethod.POST)
+    public ModelAndView signinComplete(@ModelAttribute("passwordForm") @Valid final PasswordForm passwordForm, final BindingResult result, ModelAndView mav, @AuthenticationPrincipal Authentication authentication) {
+        if (result.hasErrors()) {
+            mav.setViewName("j.password");
+            return mav;
+        }
+        UserJournal uj = (UserJournal) authentication.getPrincipal();
+        uj.setPassword(passwordForm.getPasswordNew());
+        uj = sm.updateUser(uj);
+        authenticate(uj);
+//        sm.updateUser()
+//        UserJournal uj = sm.createUser(userForm);
+//        UserDetails ud = userDetailsService.loadUserByUsername(uj.getUsername());
+//        Authentication authentication = new UsernamePasswordAuthenticationToken(ud, ud.getAuthorities());
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+        mav.setViewName("redirect:/");
+//        userForm = new userForm();
+//        mav.addObject("userForm", userForm);
+        return mav;
+    }
 
 
 //    @RequestMapping(value = "/signin/registration", method = RequestMethod.POST)

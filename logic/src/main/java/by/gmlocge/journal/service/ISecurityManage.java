@@ -31,6 +31,8 @@ public interface ISecurityManage {
 
     UserJournal loadFullUser(UserJournal user);
 
+    UserJournal updateUser(UserJournal user);
+
     UserJournal findUser(String username);
     Set<Authority> getUserAuthority(UserJournal userJournal);
 

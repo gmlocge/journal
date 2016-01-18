@@ -161,6 +161,13 @@ public class SecurityManage implements ISecurityManage {
     }
 
     @Override
+    public UserJournal updateUser(UserJournal user) {
+        user = daoUser.save(user);
+        return user;
+    }
+
+
+    @Override
     public UserJournal findUser(String username) {
         UserJournal user = daoUser.findOneByUsername(username);
         return user;
