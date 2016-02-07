@@ -16,7 +16,7 @@
     </appender>
 
     <appender name="a_file" class="ch.qos.logback.core.FileAppender">
-        <file>log/wf_.log</file>
+        <file>log/wf_j.log</file>
         <encoder>
             <!--<charset>cp1251</charset>-->
             <charset>UTF-8</charset>
