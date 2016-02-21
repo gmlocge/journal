@@ -27,7 +27,7 @@
 
         <logout logout-url="/logout" logout-success-url="/" invalidate-session="true" delete-cookies="true"/>
 
-        <!--<intercept-url pattern="/ajax/api1/dc/**" access="hasRole('ROLE_DYNCONT_CRUD')"/>-->
+        <intercept-url pattern="/user/**" access="isAuthenticated()"/>
         <!--<intercept-url pattern="/ajax/api1/profile/**" access="hasRole('ROLE_ADMIN_SETTINGS')"/>-->
         <!--<intercept-url pattern="/content/dc/**" access="hasRole('ROLE_DYNCONT_CRUD')"/>-->
 

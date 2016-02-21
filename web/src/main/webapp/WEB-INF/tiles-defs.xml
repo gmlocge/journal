@@ -28,6 +28,12 @@
         <put-attribute name="content" value="/WEB-INF/tiles/b-password.jsp"/>
     </definition>
 
+    <definition extends="j.t" name="j.settings.update">
+        <put-attribute name="titleKey" value="Настройки"/>
+        <put-attribute name="headerOnPage" value="Настройки!"/>
+        <put-attribute name="content" value="/WEB-INF/tiles/user-settings-update.jsp"/>
+    </definition>
+
     <definition extends="j.t" name="j.welcome">
         <put-attribute name="titleKey" value="Добро пожаловать!"/>
         <put-attribute name="content" value="/WEB-INF/tiles/mainpage.jsp"/>

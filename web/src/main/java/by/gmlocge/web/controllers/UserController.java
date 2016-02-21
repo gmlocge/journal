@@ -106,7 +106,7 @@ public class UserController {
 
 
     @RequestMapping(value = "/user/password/update", method = RequestMethod.POST)
-    public ModelAndView signinComplete(@ModelAttribute("passwordForm") @Valid final PasswordForm passwordForm, final BindingResult result, ModelAndView mav, @AuthenticationPrincipal Authentication authentication) {
+    public ModelAndView passwordUpdate(@ModelAttribute("passwordForm") @Valid final PasswordForm passwordForm, final BindingResult result, ModelAndView mav, @AuthenticationPrincipal Authentication authentication) {
         if (result.hasErrors()) {
             mav.setViewName("j.password");
             return mav;
@@ -123,6 +123,31 @@ public class UserController {
         mav.setViewName("redirect:/");
 //        userForm = new userForm();
 //        mav.addObject("userForm", userForm);
+        return mav;
+    }
+
+    @RequestMapping(value = "/user/settings/update", method = RequestMethod.GET)
+    public ModelAndView settingUpdateFormGet(ModelAndView mav, @AuthenticationPrincipal Authentication authentication) {
+        UserJournal uj = (UserJournal) authentication.getPrincipal();
+        UserJournal userJournal = sm.loadFullUser(uj);
+        mav.setViewName("j.settings.update");
+        mav.addObject("userSettForm", userJournal);
+        return mav;
+    }
+
+    @RequestMapping(value = "/user/settings/update", method = RequestMethod.POST)
+    public ModelAndView settingUpdate(@ModelAttribute("userSettForm") @Valid final UserJournal form, final BindingResult result, ModelAndView mav, @AuthenticationPrincipal Authentication authentication) {
+        if (result.hasErrors()) {
+            mav.setViewName("j.settings.update");
+            return mav;
+        }
+        UserJournal uj = (UserJournal) authentication.getPrincipal();
+        UserJournal userJournal = sm.loadFullUser(uj);
+        userJournal.setFirstName(form.getFirstName());
+        userJournal.setMiddleName(form.getMiddleName());
+        userJournal.setLastName(form.getLastName());
+        sm.updateUser(userJournal);
+        mav.setViewName("j.settings.update");
         return mav;
     }
 
