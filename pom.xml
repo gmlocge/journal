@@ -26,9 +26,9 @@
         <spring.version>4.2.4.RELEASE</spring.version>
         <spring.security.version>4.0.3.RELEASE</spring.security.version>
         <spring.data.version>1.9.2.RELEASE</spring.data.version>
-        <hibernate.version>5.0.6.Final</hibernate.version>
+        <hibernate.version>5.1.0.Final</hibernate.version>
         <tiles.version>3.0.5</tiles.version>
-        <jackson.version>2.6.4</jackson.version>
+        <jackson.version>2.7.1</jackson.version>
 
         <!--<mysql.driver.version>5.1.31</mysql.driver.version>-->
         <!--<db2.driver.version>4.15.134</db2.driver.version>-->
