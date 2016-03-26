@@ -24,29 +24,29 @@
         </encoder>
     </appender>
 
-    <logger name="by.gmlocge" level="DEBUG" additivity="false">
+    <logger name="by.gmlocge" level="ERROR" additivity="false">
         <!--<appender-ref ref="a_file"/>-->
         <appender-ref ref="a_console"/>
     </logger>
 
-    <logger name="org.springframework" level="WARN" additivity="false">
+    <logger name="org.springframework" level="ERROR" additivity="false">
         <appender-ref ref="a_console"/>
     </logger>
-    <logger name="org.springframework.context" level="DEBUG" additivity="false">
+    <logger name="org.springframework.context" level="ERROR" additivity="false">
         <appender-ref ref="a_console"/>
     </logger>
-    <logger name="org.springframework.web" level="DEBUG" additivity="false">
+    <logger name="org.springframework.web" level="ERROR" additivity="false">
         <appender-ref ref="a_console"/>
     </logger>
 
     <logger name="org.hibernate.sql" level="DEBUG" additivity="false" >
         <appender-ref ref="a_console"/>
     </logger>
-    <logger name="org.hibernate" level="WARN" additivity="false" >
+    <logger name="org.hibernate" level="ERROR" additivity="false" >
         <appender-ref ref="a_console"/>
     </logger>
 
-    <root level="WARN">
+    <root level="ERROR">
         <appender-ref ref="a_console"/>
     </root>
 </configuration>
