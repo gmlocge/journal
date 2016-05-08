@@ -5,8 +5,8 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title><tiles:getAsString name="titleKey"/></title>
     <meta name="_csrf" content="${_csrf.token}"/>
     <!-- default header name is X-CSRF-TOKEN -->
@@ -14,7 +14,7 @@
 
     <%--<link href="${ctx}/resources/favicon.ico" rel="shortcut icon">--%>
     <%--<link rel="stylesheet" type="text/css" href="${ctx}/resources/css/usogdp.css"/>--%>
-    <jsp:include page="/WEB-INF/template/includes.jsp"/>
+    <jsp:include page="/WEB-INF/template/includesCSS.jsp"/>
     <style type="text/css">
         * {
             margin: 0;
@@ -51,5 +51,6 @@
     </div>
     <jsp:include page="/WEB-INF/template/footer.jsp"/>
 </div>
+<jsp:include page="/WEB-INF/template/includesJS.jsp"/>
 </body>
 </html>

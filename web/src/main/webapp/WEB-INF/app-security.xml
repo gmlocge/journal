@@ -9,6 +9,7 @@
                                  http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
                                  http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
+    <http security="none" pattern="/resources/**"/>
     <http security="none" pattern="/webjars/**"/>
     <http security="none" pattern="/favicon.ico"/>
 
