@@ -16,7 +16,7 @@
         http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
     <context:property-placeholder location="classpath:jdbc-test.properties" file-encoding="UTF-8"/>
-    <import resource="classpath:journal-dao-beans.xml"/>
+    <import resource="classpath:journal-dao-beans-h2.xml"/>
 
 
 </beans>
