@@ -44,7 +44,7 @@ public class TestRepositorys {
 
 
     private static void testOne(ApplicationContext ac) {
-        ServiceData serviseData = ac.getBean(ServiceData.class);
+//        ServiceData serviseData = ac.getBean(ServiceData.class);
         IDeviceRepository daoDevice = ac.getBean(IDeviceRepository.class);
         IServeRepository daoServe = ac.getBean(IServeRepository.class);
         IOrgRepository daoOrg = ac.getBean(IOrgRepository.class);
@@ -70,7 +70,7 @@ public class TestRepositorys {
     }
 
     private static void testUser(ApplicationContext ac) {
-        ServiceData serviseData = ac.getBean(ServiceData.class);
+//        ServiceData serviseData = ac.getBean(ServiceData.class);
         ISecurityManage securityManage = ac.getBean(ISecurityManage.class);
         IUserJournalRepository daoUser = ac.getBean(IUserJournalRepository.class);
 //        IAccountRepository daoAccount = ac.getBean(IAccountRepository.class);
