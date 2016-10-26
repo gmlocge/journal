@@ -14,7 +14,7 @@
 
     <%--<link href="${ctx}/resources/favicon.ico" rel="shortcut icon">--%>
     <%--<link rel="stylesheet" type="text/css" href="${ctx}/resources/css/usogdp.css"/>--%>
-    <jsp:include page="/WEB-INF/template/includes.jsp"/>
+    <jsp:include page="/WEB-INF/template/includesCSS.jsp"/>
     <style type="text/css">
         * {
             margin: 0;
@@ -65,5 +65,6 @@
     </div>
     <jsp:include page="/WEB-INF/template/footer.jsp"/>
 </div>
+<jsp:include page="/WEB-INF/template/includesJS.jsp"/>
 </body>
 </html>

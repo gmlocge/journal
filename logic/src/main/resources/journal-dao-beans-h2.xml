@@ -72,6 +72,7 @@
         <property name="jpaVendorAdapter" ref="gmlocge-jpaVendorAdapter"/>
         <!--spring based scanning for entity classes-->
         <!--<property name="packagesToScan" value="rw.ktc.ksupr.web.dao.entity"/>-->
+
         <property name="packagesToScan">
             <list>
                 <value>by.gmlocge.journal.entity</value>

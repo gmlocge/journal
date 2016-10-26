@@ -11,39 +11,59 @@
         /*right: 5px;*/
         /*}*/
     </style>
-    <nav class="navbar navbar-default navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                        aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="${ctx}/">рИАВиВРЗ</a>
-            </div>
+    <div class="container">
+        <nav class="navbar navbar-fixed-top navbar-light bg-faded">
+            <a class="navbar-brand" href="${ctx}/">рИАВиВРЗ</a>
 
-            <div id="navbar" class="navbar-collapse collapse">
-            
-                <sec:authorize access="isAuthenticated()">
-                    <jsp:include page="headermenu.jsp"/>
-                </sec:authorize>
-                <%--<sec:authorize access="!isAuthenticated()">--%>
-                <%--<form class="navbar-form navbar-right" action="${ctx}/login" method="post">--%>
-                    <%--<div class="form-group ">--%>
-                        <%--<input id="username" name="username" type="text" placeholder="Логин"--%>
-                               <%--class="form-control col-md-1">--%>
-                    <%--</div>--%>
-                    <%--<div class="form-group ">--%>
-                        <%--<input id="password" name="password" type="password" placeholder="Пароль"--%>
-                               <%--class="form-control col-md-1">--%>
-                    <%--</div>--%>
-                    <%--<button type="submit" class="btn btn-success">Войти</button>--%>
-                    <%--<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>--%>
-                <%--</form>--%>
-                <%--</sec:authorize>--%>
-            </div><!--/.navbar-collapse -->
-        </div>
-    </nav>
+            <sec:authorize access="isAuthenticated()">
+                <jsp:include page="headermenu.jsp"/>
+            </sec:authorize>
+            <%--<ul class="nav navbar-nav">--%>
+            <%--<li class="nav-item active">--%>
+            <%--<a class="nav-link" href="#">Home </a>--%>
+            <%--</li>--%>
+            <%--<li class="nav-item">--%>
+            <%--<a class="nav-link" href="#">Features</a>--%>
+            <%--</li>--%>
+            <%--<li class="nav-item">--%>
+            <%--<a class="nav-link" href="#">Pricing</a>--%>
+            <%--</li>--%>
+            <%--<li class="nav-item">--%>
+            <%--<a class="nav-link" href="#">About</a>--%>
+            <%--</li>--%>
+            <%--<li class="nav-item">--%>
+            <%--<a class="nav-link" href="#">About</a>--%>
+            <%--</li>--%>
+            <%--<li class="nav-item">--%>
+            <%--<a class="nav-link" href="#">About</a>--%>
+            <%--</li>--%>
+            <%--<li class="nav-item">--%>
+            <%--<a class="nav-link" href="#">About</a>--%>
+            <%--</li>--%>
+            <%--</ul>--%>
+        </nav>
+    </div>
+
+
+    <%--<nav class="navbar navbar-default navbar-fixed-top">--%>
+    <%--<div class="container">--%>
+    <%--<div class="navbar-header">--%>
+    <%--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"--%>
+    <%--aria-expanded="false" aria-controls="navbar">--%>
+    <%--<span class="sr-only">Toggle navigation</span>--%>
+    <%--<span class="icon-bar"></span>--%>
+    <%--<span class="icon-bar"></span>--%>
+    <%--<span class="icon-bar"></span>--%>
+    <%--</button>--%>
+    <%--<a class="navbar-brand" href="${ctx}/">рИАВиВРЗ</a>--%>
+    <%--</div>--%>
+
+    <%--<div id="navbar" class="navbar-collapse collapse">--%>
+    <%----%>
+    <%--<sec:authorize access="isAuthenticated()">--%>
+    <%--<jsp:include page="headermenu.jsp"/>--%>
+    <%--</sec:authorize>--%>
+    <%--</div>--%>
+    <%--</div>--%>
+    <%--</nav>--%>
 </header>

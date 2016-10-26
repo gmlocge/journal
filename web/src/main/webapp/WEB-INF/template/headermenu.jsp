@@ -4,10 +4,28 @@
 <%@ taglib prefix="sec"
            uri="http://www.springframework.org/security/tags" %>
 <ul class="nav navbar-nav">
-    <li class=""><a href="">Home</a></li>
-    <li><a href="about">About</a></li>
-    <li><a href="contact">Contact</a></li>
+    <li class="nav-item active">
+        <a class="nav-link" href="#">Home </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#">Features</a>
+    </li>
+    <%--<li class="nav-item">--%>
+    <%--<a class="nav-link" href="#">Pricing</a>--%>
+    <%--</li>--%>
+    <li class="nav-item">
+        <a class="nav-link" href="about">About</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="contact">Contact</a>
+    </li>
 </ul>
+
+<%--<ul class="nav navbar-nav">--%>
+    <%--<li class=""><a href="">Home</a></li>--%>
+    <%--<li><a href="about">About</a></li>--%>
+    <%--<li><a href="contact">Contact</a></li>--%>
+<%--</ul>--%>
 <ul class="nav navbar-nav navbar-right">
     <!--             <li><a href="http://getbootstrap.com/examples/navbar/">Default</a></li> -->
     <!--             <li><a href="http://getbootstrap.com/examples/navbar-static-top/">Static top</a></li> -->

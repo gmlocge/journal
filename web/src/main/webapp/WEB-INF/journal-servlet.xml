@@ -17,8 +17,8 @@
 
     <!--  all resources inside folder src/main/webapp/resources are mapped so they can be refered to inside JSP files
         (see inHeader.jsp for more details) -->
-    <!--<mvc:resources mapping="/resources/**" location="/resources/"/>-->
-    <!--<mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>-->
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
+    <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
     <mvc:default-servlet-handler/>
 
     <context:component-scan base-package="by.gmlocge.web"/>

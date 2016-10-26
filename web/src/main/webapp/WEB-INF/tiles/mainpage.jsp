@@ -19,21 +19,39 @@
             </sec:authorize>
         </div>
         <div class="col-lg-4">
-            <ul id="roleTabs" class="nav nav-tabs">
-                <li class="active"><a href="#tlogin" aria-controls="tlogin" role="tab" data-toggle="tab">Вход</a></li>
-                <li><a href="#tsignin" aria-controls="tsignin" role="tab" data-toggle="tab">Регистрация</a></li>
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#tlogin">Вход</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#tsignin">Регистрация</a>
+                </li>
             </ul>
-            <!-- Tab panes -->
+            <div class="line5"> </div>
             <div class="tab-content">
-                <div id="tlogin" class="tab-pane fade in active">
-                    <br>
+                <div id="tlogin" class="tab-pane fade in active" role="tabpanel">
                     <jsp:include page="b-login.jsp"/>
                 </div>
-                <div id="tsignin" class="tab-pane fade">
-                    <br>
+                <div id="tsignin" class="tab-pane fade" role="tabpanel">
                     <jsp:include page="b-signin.jsp"/>
                 </div>
             </div>
+
+            <%--<ul id="roleTabs" class="nav nav-tabs">--%>
+                <%--<li class="active"><a href="#tlogin" aria-controls="tlogin" role="tab" data-toggle="tab">Вход</a></li>--%>
+                <%--<li><a href="#tsignin" aria-controls="tsignin" role="tab" data-toggle="tab">Регистрация</a></li>--%>
+            <%--</ul>--%>
+            <%--<!-- Tab panes -->--%>
+            <%--<div class="tab-content">--%>
+                <%--<div id="tlogin" class="tab-pane fade in active">--%>
+                    <%--<br>--%>
+                    <%--<jsp:include page="b-login.jsp"/>--%>
+                <%--</div>--%>
+                <%--<div id="tsignin" class="tab-pane fade">--%>
+                    <%--<br>--%>
+                    <%--<jsp:include page="b-signin.jsp"/>--%>
+                <%--</div>--%>
+            <%--</div>--%>
             <%--<div>--%>
             <%--<jsp:include page="login.jsp"/>--%>
             <%--</div>--%>
