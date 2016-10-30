@@ -1,49 +1,31 @@
 package by.gmlocge.journal.service;
 
-import by.gmlocge.journal.entity.security.Group;
-import by.gmlocge.journal.entity.security.Authority;
+import by.gmlocge.journal.entity.security.Role;
 import by.gmlocge.journal.entity.security.UserJournal;
-import org.springframework.security.core.GrantedAuthority;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityExistsException;
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Set;
 
-@Transactional
+@Transactional(readOnly = true)
 public interface ISecurityManage {
 
-    List<Group> getAllGroups();
-    Group getGroupByName(String name);
+    Role createOrUpdateRole(String name, Set<String> permissions);
 
-    Group createGroup(String name) throws EntityExistsException;
-    Group createGroupIfNotExist(String name);
-
-    Group addAuthoritiesToGroup(Group g, Set<Authority> authorities) throws EntityNotFoundException;
-    Group addAuthorityToGroup(Group g, Authority authority) throws EntityNotFoundException;
-    Group removeAuthoritiesFromGroup(Group g, Set<Authority> authorities);
-    Group removeAuthorityFromGroup(Group g, Authority authority) throws EntityNotFoundException;
-
-    Set<Authority> createAuthorities(GrantedAuthority... gas);
+    Set<Role> createOrUpdateRoleIfNotExist(Set<Role> roles);
 
     List<UserJournal> findAllUsers();
 
-    UserJournal loadFullUser(UserJournal user);
+    UserJournal createUser(String login, String password);
 
-    UserJournal updateUser(UserJournal user);
+    UserJournal getUser(String login);
 
-    UserJournal findUser(String username);
-    Set<Authority> getUserAuthority(UserJournal userJournal);
+    Set<String> getUserPermissions(UserJournal userJournal);
 
-    UserJournal  createUser(String username, String password) throws EntityExistsException;
+    UserJournal updateUser(UserJournal user, Set<Role> roles);
 
-    UserJournal createUser(UserJournal userJournal);
 
-    UserJournal  createUserIfNotExist(String username, String password);
-
-    UserJournal addGroupsToUser(UserJournal user, Set<Group> groups);
-    UserJournal addGroupToUser(UserJournal user, Group group);
-    UserJournal removeGroupsFromUser(UserJournal user, Set<Group> groups);
-    UserJournal removeGroupFromUser(UserJournal user, Group group);
+//    @Transactional(propagation = Propagation.REQUIRED)
+//    UserJournal addPermission(String login, Set<String> permissions);
 }

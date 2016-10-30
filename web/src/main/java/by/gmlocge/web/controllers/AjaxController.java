@@ -1,9 +1,10 @@
 package by.gmlocge.web.controllers;
 
+import by.gmlocge.dao.generic.DaoException;
 import by.gmlocge.journal.entity.Device;
 import by.gmlocge.journal.entity.security.UserJournal;
 import by.gmlocge.journal.service.ISecurityManage;
-import by.gmlocge.journal.service.IServiceData;
+import by.gmlocge.journal.service.IServiseData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +13,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/ajax")
@@ -22,9 +24,9 @@ public class AjaxController {
     private static final Logger logger = LoggerFactory.getLogger(AjaxController.class);
 
     @Autowired
-    IServiceData serviseData;
+    IServiseData serviseData;
     @Autowired
-    ISecurityManage sm;
+    ISecurityManage securityManage;
 
     @ResponseBody
     @RequestMapping(value = "/devices/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -36,22 +38,14 @@ public class AjaxController {
     @RequestMapping(value = "/users/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     @Transactional
     public List<UserJournal> usersall() {
-        return sm.findAllUsers();
+        return securityManage.findAllUsers();
     }
-
-    @ResponseBody
-    @RequestMapping(value = "/users/isexist", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Object forecast(@RequestParam("username") String username) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("name", username);
-        UserJournal uj = sm.findUser(username);
-        if (null == uj){
-            map.put("exist", false);
-        } else {
-            map.put("exist", true);
-        }
-        return map;
-    }
+//
+//    @ResponseBody
+//    @RequestMapping(value = "/forecast", method = RequestMethod.GET, produces = "application/json")
+//    public ForecastVO forecast(@RequestParam("id") Integer id) {
+//        return getServiseData().getForecastById(id);
+//    }
 //
 //    @ResponseBody
 //    @RequestMapping(value = "/forecast/delete/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -170,11 +164,11 @@ public class AjaxController {
 //    }
 //
 //    // getter and setters
-//    public IServiceData getServiseData() {
+//    public IServiseData getServiseData() {
 //        return serviseData;
 //    }
 //
-//    public void setServiseData(IServiceData serviseData) {
+//    public void setServiseData(IServiseData serviseData) {
 //        this.serviseData = serviseData;
 //    }
 //

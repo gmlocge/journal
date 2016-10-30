@@ -27,7 +27,7 @@ public class UserWeb extends User{
 //        this.user = user;
     }
 
-//    public rw.ktc.cms.entity.User loadFullUser() {
+//    public rw.ktc.cms.entity.User getUser() {
 //        return user;
 //    }
 

@@ -9,33 +9,33 @@
     <!--<context:component-scan base-package="rw.ktc.gmlocge.dao.access.impl"/>-->
     <context:component-scan base-package="by.gmlocge.journal.service"/>
 
-    <bean id="gmlocge-ds" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
-    <property name="driverClass" value="${jdbc.postgresql.driverClassName}" />
-    <property name="jdbcUrl" value="${jdbc.postgresql.url}" />
-    <property name="user" value="${jdbc.postgresql.username}" />
-    <property name="password" value="${jdbc.postgresql.password}" />
-    <!--<property name="minPoolSize" value="2" />-->
-    <property name="maxPoolSize" value="10" />
-    <!--<property name="maxStatements" value="20" />-->
-    <!--<property name="idleConnectionTestPeriod" value="3000" />-->
-    <property name="loginTimeout" value="30" />
-    </bean>
-
-    <!--<bean id="gmlocge-ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
-        <!--<property name="driverClassName" value="${jdbc.h2.driverClassName}"/>-->
-        <!--<property name="url" value="${jdbc.h2.url}"/>-->
-        <!--<property name="username" value="${jdbc.h2.username}"/>-->
-        <!--<property name="password" value="${jdbc.h2.password}"/>-->
+    <!--<bean id="gmlocge-ds" class="com.mchange.v2.c3p0.ComboPooledDataSource"-->
+    <!--destroy-method="close">-->
+    <!--<property name="driverClass" value="${jdbc.h2.driverClassName}" />-->
+    <!--<property name="jdbcUrl" value="${jdbc.h2.url}" />-->
+    <!--<property name="user" value="${jdbc.h2.username}" />-->
+    <!--<property name="password" value="${jdbc.h2.password}" />-->
+    <!--&lt;!&ndash;<property name="minPoolSize" value="2" />&ndash;&gt;-->
+    <!--<property name="maxPoolSize" value="20" />-->
+    <!--&lt;!&ndash;<property name="maxStatements" value="20" />&ndash;&gt;-->
+    <!--&lt;!&ndash;<property name="idleConnectionTestPeriod" value="3000" />&ndash;&gt;-->
+    <!--<property name="loginTimeout" value="300" />-->
     <!--</bean>-->
+
+    <bean id="gmlocge-ds" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="${jdbc.h2.driverClassName}"/>
+        <property name="url" value="${jdbc.h2.url}"/>
+        <property name="username" value="${jdbc.h2.username}"/>
+        <property name="password" value="${jdbc.h2.password}"/>
+    </bean>
 
     <bean id="gmlocge-sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
         <property name="dataSource" ref="gmlocge-ds"/>
         <property name="hibernateProperties">
             <props>
-                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL94Dialect</prop>
-                <prop key="hibernate.show_sql">${logging.hibernate.sql.show}</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
+                <prop key="hibernate.show_sql">false</prop>
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
-                <prop key="hibernate.globally_quoted_identifiers">true</prop>
                 <!--<prop key="hibernate.hbm2ddl.auto">validate</prop>-->
                 <!--<prop key="javax.persistence.validation.mode">none</prop>-->
                 <!--<prop key="hibernate.current_session_context_class">thread</prop>-->
@@ -64,7 +64,7 @@
     <bean id="gmlocge-jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
         <!--<property name="showSql" value="true"/>-->
         <property name="generateDdl" value="true"/>
-        <property name="database" value="POSTGRESQL"/>
+        <property name="database" value="H2"/>
     </bean>
 
     <bean id="gmlocge-entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
@@ -80,13 +80,11 @@
         </property>
         <property name="jpaProperties">
             <props>
-                <prop key="hibernate.show_sql">${logging.hibernate.sql.show}</prop>
-                <prop key="hibernate.dialect">org.hibernate.dialect.PostgreSQL94Dialect</prop>
+                <prop key="hibernate.show_sql">false</prop>
+                <prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
-                <prop key="hibernate.globally_quoted_identifiers">true</prop>
                 <!--<prop key="hibernate.hbm2ddl.auto">validate</prop>-->
                 <!--<prop key="javax.persistence.validation.mode">none</prop>-->
-
             </props>
         </property>
     </bean>

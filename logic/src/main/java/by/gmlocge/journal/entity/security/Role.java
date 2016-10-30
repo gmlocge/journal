@@ -7,8 +7,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(schema = Const.SCHEMA, name = "groups")
-public class Group {
+@Table(schema = Const.SCHEMA, name = "roles")
+public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,16 +18,9 @@ public class Group {
     @Column(unique = true, nullable = false)
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "group", fetch = FetchType.EAGER, orphanRemoval = true)
-    private Set<Authority> authorities = new HashSet<>();
-
-    public Set<Authority> getAuthorities() {
-        return authorities;
-    }
-
-    public void setAuthorities(Set<Authority> authorities) {
-        this.authorities = authorities;
-    }
+    @ElementCollection
+    @JoinTable(schema = Const.SCHEMA, name = "role_permissions")
+    private Set<String> permissions = new HashSet<>();
 
     public Integer getId() {
         return id;
@@ -45,13 +38,20 @@ public class Group {
         this.name = name;
     }
 
+    public Set<String> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(Set<String> permissions) {
+        this.permissions = permissions;
+    }
 
     @Override
     public String toString() {
-        return "Group{" +
+        return "Role{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", authorities=" + authorities +
+                ", permissions=" + permissions +
                 '}';
     }
 
@@ -60,7 +60,7 @@ public class Group {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Group role = (Group) o;
+        Role role = (Role) o;
 
         return name.equals(role.name);
 

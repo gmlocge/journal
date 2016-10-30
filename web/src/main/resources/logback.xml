@@ -16,7 +16,7 @@
     </appender>
 
     <appender name="a_file" class="ch.qos.logback.core.FileAppender">
-        <file>log/wf_j.log</file>
+        <file>log/wf_.log</file>
         <encoder>
             <!--<charset>cp1251</charset>-->
             <charset>UTF-8</charset>
@@ -24,29 +24,23 @@
         </encoder>
     </appender>
 
-    <logger name="by.gmlocge" level="ERROR" additivity="false">
+    <logger name="by.gmlocge" level="DEBUG" additivity="false">
         <!--<appender-ref ref="a_file"/>-->
         <appender-ref ref="a_console"/>
     </logger>
 
-    <logger name="org.springframework" level="ERROR" additivity="false">
-        <appender-ref ref="a_console"/>
-    </logger>
-    <logger name="org.springframework.context" level="ERROR" additivity="false">
-        <appender-ref ref="a_console"/>
-    </logger>
-    <logger name="org.springframework.web" level="ERROR" additivity="false">
+    <logger name="org.springframework" level="WARN" additivity="false">
         <appender-ref ref="a_console"/>
     </logger>
 
     <logger name="org.hibernate.sql" level="DEBUG" additivity="false" >
         <appender-ref ref="a_console"/>
     </logger>
-    <logger name="org.hibernate" level="ERROR" additivity="false" >
+    <logger name="org.hibernate" level="WARN" additivity="false" >
         <appender-ref ref="a_console"/>
     </logger>
 
-    <root level="ERROR">
+    <root level="DEBUG">
         <appender-ref ref="a_console"/>
     </root>
 </configuration>
