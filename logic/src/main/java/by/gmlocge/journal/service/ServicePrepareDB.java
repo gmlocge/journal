@@ -29,7 +29,7 @@ public class ServicePrepareDB {
     @Autowired
     private DataSource ds;
 
-    public static void createSchema(DataSource ds) {
+    private static void createSchema(DataSource ds) {
         try {
             Connection con = ds.getConnection();
             Statement st = con.createStatement();

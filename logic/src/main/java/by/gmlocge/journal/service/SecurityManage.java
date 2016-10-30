@@ -68,7 +68,7 @@ public class SecurityManage implements ISecurityManage {
         return daoGroup.findAll();
     }
 
-    public Group updateAuthoritiesInGroup(Group group) {
+    private Group updateAuthoritiesInGroup(Group group) {
         for (Authority authority : group.getAuthorities()) {
             authority.setGroup(group);
         }
