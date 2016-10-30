@@ -16,7 +16,8 @@
         http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
     <context:property-placeholder location="classpath:jdbc-test.properties" file-encoding="UTF-8"/>
-    <import resource="classpath:dataSource-h2-embedded.xml"/>
-    <import resource="classpath:dao-beans-h2.xml"/>
+    <import resource="classpath:dataSource-postgres.xml"/>
+    <import resource="classpath:dao-beans-postgres.xml"/>
+
 
 </beans>

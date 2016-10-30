@@ -1,77 +1,115 @@
 package by.gmlocge.journal.service;
 
 import by.gmlocge.journal.Const;
-import by.gmlocge.journal.entity.security.Account;
-import by.gmlocge.journal.entity.security.Role;
+import by.gmlocge.journal.entity.security.Group;
+import by.gmlocge.journal.entity.security.Authority;
 import by.gmlocge.journal.entity.security.UserJournal;
 import by.gmlocge.journal.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
+import java.util.*;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional
 public class SecurityManage implements ISecurityManage {
     private static final Logger logger = LoggerFactory.getLogger(SecurityManage.class);
 
     @Autowired
-    private IAccountRepository daoAccount;
-    @Autowired
     private IUserJournalRepository daoUser;
     @Autowired
-    private IRoleRepository daoRole;
+    private IGroupRepository daoGroup;
 
-    @PostConstruct
-    private void init() {
-        // создаем роль гостя
-        logger.trace("обновление ролей");
-        Role rSimply = createOrUpdateRole(Const.NAME_SIMPLY_ROLE, Const.PERMISSIONS_AUTH);
-        logger.trace("update role - " + rSimply);
-        // создаем роль админа
-        Role rAdmin = createOrUpdateRole(Const.NAME_ADMIN_ROLE, Const.PERMISSIONS_ALL);
-        logger.trace("update role - " + rAdmin);
-
-        UserJournal uAdmin = createUser("d4", "admin");
-        uAdmin = updateUser(uAdmin, new HashSet<>(Arrays.asList(rSimply, rAdmin)));
-//        logger.trace("update user - " + uAdmin);
-        UserJournal uSimply = createUser("test", "test");
-        uSimply = updateUser(uSimply, new HashSet<>(Arrays.asList(rSimply)));
-//        logger.trace("update user - " + uSimply);
-        UserJournal uGuest = createUser("guest", "guest");
-        uGuest = updateUser(uGuest, new HashSet<>(Arrays.asList(rSimply)));
-//        logger.trace("update user - " + uGuest);
-
+    @Override
+    public Set<Authority> createAuthorities(GrantedAuthority... gas) {
+        Set<Authority> authorities = new HashSet<>();
+        for (GrantedAuthority grantedAuthority : gas) {
+            Authority ua = new Authority(grantedAuthority);
+            authorities.add(ua);
+        }
+        return authorities;
     }
 
     @Override
-    public Role createOrUpdateRole(String name, Set<String> permissions) {
-        Role role = daoRole.findOneByName(name);
-        if (null == role) {
-            role = new Role();
-            role.setName(name);
-            daoRole.save(role);
+    public Group createGroup(String name) throws EntityExistsException {
+        Group group = daoGroup.findOneByName(name);
+        if (null != group) {
+            throw new EntityExistsException("group with name '" + group.getName() + "' already exist!");
         }
-        role.setPermissions(permissions);
-        daoRole.save(role);
-        return role;
+        group = new Group();
+        group.setName(name);
+        daoGroup.save(group);
+        return group;
     }
 
     @Override
-    public Set<Role> createOrUpdateRoleIfNotExist(Set<Role> roles) {
-        for (Role role : roles) {
-            if (null == role.getId() || 0 == role.getId()) {
-                daoRole.save(role);
-            }
+    public Group createGroupIfNotExist(String name) {
+        Group group = daoGroup.findOneByName(name);
+        if (null != group) {
+            return group;
         }
-        return roles;
+        return createGroup(name);
+    }
+
+    @Override
+    public Group getGroupByName(String name) {
+        Group group = daoGroup.findOneByName(name);
+        return group;
+    }
+
+    @Override
+    public List<Group> getAllGroups() {
+        return daoGroup.findAll();
+    }
+
+    public Group updateAuthoritiesInGroup(Group group) {
+        for (Authority authority : group.getAuthorities()) {
+            authority.setGroup(group);
+        }
+        return group;
+    }
+
+    @Override
+    public Group addAuthoritiesToGroup(Group g, Set<Authority> authorities) throws EntityNotFoundException {
+        Group group = daoGroup.findOne(g.getId());
+        if (null == group) {
+            throw new EntityNotFoundException("Group with id=" + g.getId() + " not found for update");
+        }
+        if (null == authorities) {
+            return group;
+        }
+        group.getAuthorities().addAll(authorities);
+        updateAuthoritiesInGroup(group);
+        daoGroup.save(group);
+        return group;
+    }
+
+    @Override
+    public Group addAuthorityToGroup(Group g, Authority authority) throws EntityNotFoundException {
+        return addAuthoritiesToGroup(g, new HashSet<>(Arrays.asList(authority)));
+    }
+
+    @Override
+    public Group removeAuthoritiesFromGroup(Group g, Set<Authority> authorities) {
+        Group group = daoGroup.findOne(g.getId());
+        if (null == group || null == authorities) {
+            return null;
+        }
+        group.getAuthorities().removeAll(authorities);
+        updateAuthoritiesInGroup(group);
+        daoGroup.save(group);
+        return group;
+    }
+
+    @Override
+    public Group removeAuthorityFromGroup(Group g, Authority authority) throws EntityNotFoundException {
+        return removeAuthoritiesFromGroup(g, new HashSet<>(Arrays.asList(authority)));
     }
 
     @Override
@@ -80,77 +118,100 @@ public class SecurityManage implements ISecurityManage {
         return l;
     }
 
-
     @Override
-    public UserJournal createUser(String login, String password) {
-        UserJournal userJournal = null;
-        Account account = daoAccount.findOneByLogin(login);
-        userJournal = daoUser.findOneByAccounts(account);
-        if (null == account || null == userJournal) {
-            if (null == account) {
-                account = new Account();
-            }
-            account.setLogin(login);
-            account.setEmail(login);
-            account.setPassword(password);
+    public UserJournal createUser(String username, String password) throws EntityExistsException {
+        UserJournal userJournal = daoUser.findOneByUsername(username);
+        if (null == userJournal) {
             userJournal = new UserJournal();
-            userJournal.setFirstName(login);
-            userJournal.getAccounts().add(account);
-            daoAccount.save(account);
+            userJournal.setUsername(username);
+            userJournal.setPassword(password);
             daoUser.save(userJournal);
-            logger.trace("создаем пользователя - " + userJournal);
-        } else {
-            userJournal = daoUser.findOneByAccounts(account);
-            logger.trace("пользователь с таким логином уже существует- " + account);
+            logger.info("создаем пользователя - " + userJournal);
+            return userJournal;
+        }
+        throw new EntityExistsException("user with given name already exist:" + userJournal);
+    }
+
+    @Override
+    public UserJournal createUser(UserJournal userJournal) {
+        Group base = daoGroup.findOneByName(Const.NAME_BASE_GROUP);
+        userJournal.getGroups().add(base);
+        userJournal = daoUser.save(userJournal);
+        logger.trace("создаем пользователя - " + userJournal);
+        return userJournal;
+    }
+
+
+    @Override
+    public UserJournal createUserIfNotExist(String username, String password) {
+        UserJournal userJournal = daoUser.findOneByUsername(username);
+        if (null == userJournal) {
+            return createUser(username, password);
         }
         return userJournal;
     }
 
     @Override
-    @Transactional
-    public UserJournal getUser(String login) {
-        UserJournal userJournal = null;
-        Account account = daoAccount.findOneByLogin(login);
-        userJournal = daoUser.findOneByAccounts(account);
-        return userJournal;
+    public UserJournal loadFullUser(UserJournal user) {
+        if (null == user) return null;
+        user = daoUser.findOne(user.getId());
+        if (null == user) return null;
+        user.getGroups().size();
+        return user;
     }
 
     @Override
-    public Set<String> getUserPermissions(UserJournal userJournal) {
-        userJournal =  daoUser.findOne(userJournal.getId());
-        Set<Role> roles = userJournal.getRoles();
-        Set<String> permissions = new HashSet<>();
-        for (Role role : roles) {
-            permissions.addAll(role.getPermissions());
-        }
-        return permissions;
+    public UserJournal updateUser(UserJournal user) {
+        user = daoUser.save(user);
+        return user;
     }
 
 
     @Override
-    @Transactional
-    public UserJournal updateUser(UserJournal user, Set<Role> roles) {
-        if (user != null) {
-            roles = createOrUpdateRoleIfNotExist(roles);
-            user.setRoles(roles);
+    public UserJournal findUser(String username) {
+        UserJournal user = daoUser.findOneByUsername(username);
+        return user;
+    }
+
+    @Override
+    public Set<Authority> getUserAuthority(UserJournal user) {
+        user = daoUser.findOne(user.getId());
+        user.getAuthorities().size();
+        return user.getAuthorities();
+    }
+
+
+    @Override
+    public UserJournal addGroupsToUser(UserJournal user, Set<Group> groups) {
+        user = daoUser.findOne(user.getId());
+        if (null != user) {
+            user.getAuthorities().size();
+            user.getGroups().addAll(groups);
             daoUser.save(user);
         }
         return user;
     }
-//        @Override
-//        @Transactional(propagation = Propagation.REQUIRED)
-//        public UserJournal addPermission (String login, Set < String > permissions){
-//        Account account = daoAccount.findOneByLogin(login);
-//            UserJournal userJournal = null;
-//        if (account != null) {
-//            userJournal = daoUser.findOneByAccounts(account);
-////            Hibernate.initialize(userJournal.getPermissions());
-//            userJournal.getPermissions().addAll(permissions);
-//            daoUser.save(userJournal);
-//        }
-//            return userJournal;
-//        }
 
+    @Override
+    public UserJournal addGroupToUser(UserJournal user, Group group) {
+        return addGroupsToUser(user, new HashSet<>(Arrays.asList(group)));
+    }
+
+    @Override
+    public UserJournal removeGroupsFromUser(UserJournal user, Set<Group> groups) {
+        user = daoUser.findOne(user.getId());
+        if (user != null) {
+            user.getAuthorities().size();
+            user.getGroups().removeAll(groups);
+            daoUser.save(user);
+        }
+        return user;
+    }
+
+    @Override
+    public UserJournal removeGroupFromUser(UserJournal user, Group group) {
+        return removeGroupsFromUser(user, new HashSet<>(Arrays.asList(group)));
+    }
 
 //    @Autowired
 //    public ServiceData(@Value("${usogdp.road.nameForSearch}") String bchRoadName) {

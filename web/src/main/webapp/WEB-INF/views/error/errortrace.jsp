@@ -2,11 +2,8 @@
 <%@ page isErrorPage="true" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-<head>
-</head>
-<body>
-<style type="text/css">
+<div class="container">
+    <style type="text/css">
     .tftable {
         font-size: 12px;
         color: #333333;
@@ -40,7 +37,7 @@
     }
 </style>
 
-<table class="tftable" border="1">
+<table class="table" >
     <tr>
         <td><b>Error:</b></td>
         <td>${pageContext.exception}</td>
@@ -79,13 +76,4 @@
     <%--</td>--%>
     <%--</tr>--%>
 </table>
-<script>
-    $('.loading').hide();
-</script>
-
-<%--<div align="center">--%>
-<%--<span><img src="/resources/images/error404.jpg"></span>--%>
-<%--</div>--%>
-
-</body>
-</html>
+</div>

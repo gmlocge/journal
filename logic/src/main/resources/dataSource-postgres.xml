@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+
+    <bean id="gmlocge-ds" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="${jdbc.postgresql.driverClassName}"/>
+        <property name="jdbcUrl" value="${jdbc.postgresql.url}"/>
+        <property name="user" value="${jdbc.postgresql.username}"/>
+        <property name="password" value="${jdbc.postgresql.password}"/>
+        <!--<property name="minPoolSize" value="2" />-->
+        <property name="maxPoolSize" value="10"/>
+        <!--<property name="maxStatements" value="20" />-->
+        <!--<property name="idleConnectionTestPeriod" value="3000" />-->
+        <property name="loginTimeout" value="30"/>
+    </bean>
+
+
+</beans>

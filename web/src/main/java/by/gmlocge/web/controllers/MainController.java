@@ -1,32 +1,59 @@
 package by.gmlocge.web.controllers;
-import by.gmlocge.journal.service.IServiseData;
+import by.gmlocge.journal.Const;
+import by.gmlocge.journal.entity.security.AuthorityPredefined;
+import by.gmlocge.journal.entity.security.Group;
+import by.gmlocge.journal.entity.security.UserJournal;
+import by.gmlocge.journal.service.ISecurityManage;
+import by.gmlocge.journal.service.ServiceData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.util.*;
+import javax.persistence.PostPersist;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Arrays;
+import java.util.HashSet;
 
 @Controller
 public class MainController {
     private final static Logger logger = LoggerFactory.getLogger(MainController.class);
-
-
+    private static boolean b = false;
     @Autowired
-    private IServiseData serviseData;
+    private ISecurityManage sm;
 
-//    @RequestMapping(value = "/glavnaya")
-//    public String index(@RequestParam(value = "forecastId", required = false) Integer id, Model model) {
-//        if (id == null) {
-//            model.addAttribute("forecastId", "");
-//        } else {
-//            model.addAttribute("forecastId", id);
-//        }
-//        return "usogdp.glavnaya";
-//    }
+    @RequestMapping(value = "/glavnaya")
+    public String index(HttpServletRequest request, HttpServletResponse response, @AuthenticationPrincipal Authentication authentication) {
+        System.out.println(authentication);
+        if (!b) {
+            init();
+        }
+        return "index";
+    }
+
+
+    private void init() {
+        Group gBase = sm.createGroupIfNotExist(Const.NAME_BASE_GROUP);
+        gBase = sm.addAuthoritiesToGroup(gBase, sm.createAuthorities(AuthorityPredefined.AUTH, AuthorityPredefined.GUEST));
+        logger.info("update - " + gBase);
+        Group gAdmin = sm.createGroupIfNotExist(Const.NAME_ADMIN_GROUP);
+        gAdmin = sm.addAuthoritiesToGroup(gAdmin, sm.createAuthorities(AuthorityPredefined.values()));
+        logger.info("update - " + gAdmin);
+
+        UserJournal uAdmin = sm.createUserIfNotExist("d4", "admin");
+        uAdmin = sm.addGroupsToUser(uAdmin, new HashSet<>(Arrays.asList(gBase, gAdmin)));
+        logger.info("update - " + uAdmin);
+
+        UserJournal uTest = sm.createUserIfNotExist("test", "1test");
+        uTest = sm.addGroupToUser(uTest, gBase);
+        logger.info("update - " + uTest);
+        b = true;
+    }
+
 //
 //    @Autowired
 //    IPlanDepartureRepository daoPlan;
@@ -114,11 +141,11 @@ public class MainController {
 //    }
 //
 //    //----------------------геттеры сеттеры-------------------
-//    public IServiseData getServiseData() {
+//    public IServiceData getServiseData() {
 //        return serviseData;
 //    }
 //
-//    public void setServiseData(IServiseData serviseData) {
+//    public void setServiseData(IServiceData serviseData) {
 //        this.serviseData = serviseData;
 //    }
 

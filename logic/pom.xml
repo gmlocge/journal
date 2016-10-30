@@ -8,12 +8,27 @@
     </parent>
 
     <artifactId>journal-logic</artifactId>
-    <version>0.1</version>
     <packaging>jar</packaging>
 
     <dependencies>
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>javax.el-api</artifactId>
+            <version>2.2.5</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>javax.el</artifactId>
+            <version>2.2.5</version>
+            <scope>test</scope>
+        </dependency>
 
-        <!-- dependecy hibernate-->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>5.3.0.Final</version>
+        </dependency>
         <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
             <artifactId>hibernate-jpa-2.1-api</artifactId>
@@ -77,15 +92,33 @@
             <artifactId>spring-jdbc</artifactId>
             <version>${spring.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+            <scope>test</scope>
+        </dependency>
+
         <!--<dependency>-->
-            <!--<groupId>org.springframework</groupId>-->
-            <!--<artifactId>spring-context-support</artifactId>-->
-            <!--<version>${spring.version}</version>-->
+        <!--<groupId>org.springframework</groupId>-->
+        <!--<artifactId>spring-context-support</artifactId>-->
+        <!--<version>${spring.version}</version>-->
         <!--</dependency>-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
             <version>${spring.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${spring.security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
     </dependencies>
 
@@ -93,26 +126,26 @@
         <directory>${target.directory}</directory>
         <plugins>
             <!--<plugin>-->
-                <!--<groupId>org.apache.maven.plugins</groupId>-->
-                <!--<artifactId>maven-jar-plugin</artifactId>-->
-                <!--<version>${maven.jar.plugin}</version>-->
-                <!--<configuration>-->
-                    <!--<archive>-->
-                        <!--<manifest>-->
-                            <!--<addDefaultImplementationEntries>true</addDefaultImplementationEntries>-->
-                            <!--<addClasspath>true</addClasspath>-->
-                            <!--&lt;!&ndash;<mainClass>path.ClassName</mainClass>&ndash;&gt;-->
-                            <!--&lt;!&ndash;чтоб библиотека использовала jar-ы из тогоже места , ге расположена сама - закоментировать следующую строку&ndash;&gt;-->
-                            <!--&lt;!&ndash;<classpathPrefix>dependency-jars/</classpathPrefix>&ndash;&gt;-->
-                        <!--</manifest>-->
-                        <!--<manifestEntries>-->
-                            <!--&lt;!&ndash;<Class-Path>dependency-jars/db2-jdbc-driver-4.15.jar</Class-Path>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<Class-Path>db2-jdbc-driver-4.15.jar</Class-Path>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<Class-Path>db2jcc4-4.15.100.jar</Class-Path>&ndash;&gt;-->
+            <!--<groupId>org.apache.maven.plugins</groupId>-->
+            <!--<artifactId>maven-jar-plugin</artifactId>-->
+            <!--<version>${maven.jar.plugin}</version>-->
+            <!--<configuration>-->
+            <!--<archive>-->
+            <!--<manifest>-->
+            <!--<addDefaultImplementationEntries>true</addDefaultImplementationEntries>-->
+            <!--<addClasspath>true</addClasspath>-->
+            <!--&lt;!&ndash;<mainClass>path.ClassName</mainClass>&ndash;&gt;-->
+            <!--&lt;!&ndash;чтоб библиотека использовала jar-ы из тогоже места , ге расположена сама - закоментировать следующую строку&ndash;&gt;-->
+            <!--&lt;!&ndash;<classpathPrefix>dependency-jars/</classpathPrefix>&ndash;&gt;-->
+            <!--</manifest>-->
+            <!--<manifestEntries>-->
+            <!--&lt;!&ndash;<Class-Path>dependency-jars/db2-jdbc-driver-4.15.jar</Class-Path>&ndash;&gt;-->
+            <!--&lt;!&ndash;<Class-Path>db2-jdbc-driver-4.15.jar</Class-Path>&ndash;&gt;-->
+            <!--&lt;!&ndash;<Class-Path>db2jcc4-4.15.100.jar</Class-Path>&ndash;&gt;-->
 
-                        <!--</manifestEntries>-->
-                    <!--</archive>-->
-                <!--</configuration>-->
+            <!--</manifestEntries>-->
+            <!--</archive>-->
+            <!--</configuration>-->
             <!--</plugin>-->
             <!--<plugin>-->
             <!--<groupId>org.apache.maven.plugins</groupId>-->
