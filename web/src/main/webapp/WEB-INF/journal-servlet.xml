@@ -111,8 +111,8 @@
         </property>
     </bean>
 
-    <bean class="org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration" >
-    </bean>
+    <!--<bean class="org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration" >-->
+    <!--</bean>-->
 
     <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
 
