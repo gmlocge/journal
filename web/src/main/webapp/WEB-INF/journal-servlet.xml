@@ -12,6 +12,7 @@
        http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
     <context:property-placeholder location="classpath:jdbc.properties" file-encoding="UTF-8"/>
+    <context:property-placeholder location="classpath:application.properties" file-encoding="UTF-8"/>
     <import resource="classpath:dataSource-h2.xml"/>
     <import resource="classpath:dao-beans-h2.xml"/>
     <!--<import resource="classpath:dataSource-postgres.xml"/>-->
@@ -108,6 +109,9 @@
                 xml=application/xml
             </value>
         </property>
+    </bean>
+
+    <bean class="org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration" >
     </bean>
 
     <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>

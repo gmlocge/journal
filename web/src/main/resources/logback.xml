@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration status="ERROR">
+<configuration status="ERROR" scan="true" scanPeriod="30 seconds">
+
+    <jmxConfigurator />
+
     <appender name="a_console" class="ch.qos.logback.core.ConsoleAppender">
         <!--<withJansi>true</withJansi>-->
         <!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder
@@ -24,29 +27,32 @@
         </encoder>
     </appender>
 
-    <logger name="by.gmlocge" level="ERROR" additivity="false">
+    <logger name="by.gmlocge" level="INFO" additivity="false">
         <!--<appender-ref ref="a_file"/>-->
         <appender-ref ref="a_console"/>
     </logger>
 
-    <logger name="org.springframework" level="ERROR" additivity="false">
+    <logger name="org.springframework" level="INFO" additivity="false">
         <appender-ref ref="a_console"/>
     </logger>
-    <logger name="org.springframework.context" level="ERROR" additivity="false">
+    <logger name="org.springframework.context" level="INFO" additivity="false">
         <appender-ref ref="a_console"/>
     </logger>
-    <logger name="org.springframework.web" level="ERROR" additivity="false">
+    <logger name="org.springframework.web" level="INFO" additivity="false">
         <appender-ref ref="a_console"/>
     </logger>
-
-    <logger name="org.hibernate.sql" level="DEBUG" additivity="false" >
-        <appender-ref ref="a_console"/>
-    </logger>
-    <logger name="org.hibernate" level="ERROR" additivity="false" >
+    <logger name="org.springframework.jdbc" level="INFO" additivity="false">
         <appender-ref ref="a_console"/>
     </logger>
 
-    <root level="ERROR">
+    <logger name="org.hibernate.sql" level="INFO" additivity="false" >
+        <appender-ref ref="a_console"/>
+    </logger>
+    <logger name="org.hibernate" level="WARN" additivity="false" >
+        <appender-ref ref="a_console"/>
+    </logger>
+
+    <root level="INFO">
         <appender-ref ref="a_console"/>
     </root>
 </configuration>

@@ -3,10 +3,11 @@ package by.gmlocge.journal.entity;
 import by.gmlocge.journal.Const;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(schema = Const.SCHEMA)
-public class Org {
+public class Org implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

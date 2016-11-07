@@ -3,12 +3,13 @@ package by.gmlocge.journal.entity.security;
 import by.gmlocge.journal.Const;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(schema = Const.SCHEMA, name = "ugroups")
-public class Group {
+public class Group implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -26,7 +26,8 @@ public class ServiceData implements IServiceData {
 
     @Override
     public List<Device> findAllDevices() {
-        return daoDevice.findAll();
+//        return daoDevice.findAll();
+        return null;
     }
 
 //    @Autowired

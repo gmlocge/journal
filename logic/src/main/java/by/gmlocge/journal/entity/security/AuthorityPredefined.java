@@ -24,8 +24,8 @@ public enum AuthorityPredefined implements GrantedAuthority {
         return authority;
     }
 
-    public Authority getGroupAuthority() {
-        return new Authority(this.getAuthority());
-    }
+//    public Authority getGroupAuthority() {
+//        return new Authority(this.getAuthority());
+//    }
 
 }
